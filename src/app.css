@@ -1,0 +1,360 @@
+@font-face {
+  font-family: "Codec Pro Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Codec Pro Regular"), url("./fonts/CodecPro-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "Codec Pro Extrabold";
+  font-style: normal;
+  font-weight: 800;
+  src: local("Codec Pro Extrabold"), url("./fonts/codec-pro-extrabold.ttf") format("truetype");
+}
+* {
+  box-sizing: border-box;
+  font-family: "Codec Pro Regular", Arial, sans-serif;
+  color: rgb(59, 59, 59);
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 8rem 1.5rem 4rem;
+}
+header button {
+  font-size: 1.5rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding-bottom: 0.5rem;
+}
+header button:hover {
+  border-bottom: 2px solid rgb(59, 59, 59);
+}
+
+aside {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  height: 100dvh;
+  width: 100px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 2rem 0 5rem 0;
+}
+aside .cart-btn-container {
+  background-color: #E8CA00;
+  border-radius: 50%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+aside .cart-btn-container .cart-amount {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.2rem;
+  background-color: rgb(59, 59, 59);
+  padding: 0.25rem;
+  border-radius: 50%;
+}
+aside .cart-btn-container .cart-amount p {
+  color: white;
+  font-size: 0.9rem;
+  margin: 0;
+  margin-top: 0.08rem;
+}
+aside .sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+aside .sidebar .page-locator {
+  height: 30px;
+  width: 10px;
+  background-color: rgb(174, 183, 193);
+  border-radius: 1rem;
+  cursor: pointer;
+}
+aside .sidebar p:first-of-type {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+aside .sidebar p {
+  font-size: 2rem;
+}
+aside .sidebar .active-location {
+  background-color: #E8CA00;
+  width: 20px;
+  cursor: auto;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 60% 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 80vh;
+  width: calc(100vw - 100px);
+}
+
+.feature-img {
+  grid-row: span 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: url("./assets/feature-bg.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 4rem;
+}
+.feature-img h1 {
+  z-index: 5;
+  color: white;
+  font-family: "Codec Pro Extrabold";
+  text-transform: uppercase;
+  font-size: 8rem;
+  letter-spacing: -0.5rem;
+  margin: 0;
+}
+.feature-img p {
+  color: white;
+  font-size: 2rem;
+  line-height: 2.4rem;
+  max-width: 80%;
+}
+.feature-img button {
+  font-family: "Codec Pro Extrabold";
+  width: 160px;
+  height: 70px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+}
+.feature-img button:hover {
+  background-color: black;
+  color: white;
+}
+
+.secondary-img {
+  grid-row: span 2;
+  background: url("./assets/secondary600.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 350px;
+}
+.secondary-img img {
+  height: 100%;
+}
+
+.graphics-container {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+}
+.graphics-container .arrow-container {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.graphics-container .arrow-container svg {
+  height: 90%;
+  width: 90%;
+}
+.graphics-container .arrow-container:hover {
+  background-color: white;
+  cursor: pointer;
+}
+.graphics-container .arrow-container:hover svg {
+  fill: black;
+}
+.graphics-container .read-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Codec Pro Extrabold";
+  font-size: 3rem;
+  padding-left: 2rem;
+  background-color: #E8CA00;
+}
+
+.products-display {
+  padding: 2rem 100px 2rem 2rem;
+}
+
+.add-cart-btn {
+  font-family: "Codec Pro Extrabold";
+  border: none;
+  background-color: #E8CA00;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  cursor: pointer;
+}
+
+.split-row {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  padding: 2rem 0;
+}
+
+.product-img-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-img-main img {
+  height: clamp(200px, 50vh, 50vh);
+}
+
+.product-main-content {
+  padding: 2rem;
+}
+.product-main-content h2 {
+  font-family: "Codec Pro Extrabold";
+  font-size: 3.4rem;
+}
+.product-main-content h3 {
+  margin: 0;
+  font-size: 2rem;
+}
+.product-main-content p {
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+
+.grid-row-thirds {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 6rem 0;
+}
+
+.product-img-secondary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-img-secondary img {
+  height: clamp(200px, 50vh, 50vh);
+}
+
+.hover-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 30%, transparent 60%);
+  padding: 12rem 12rem;
+  z-index: 5;
+}
+.hover-div h2 {
+  color: white;
+  text-align: center;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+}
+.hover-div p {
+  color: lightgray;
+  font-size: 2.4rem;
+}
+.hover-div .btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+.hover-div .small-btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+}
+.hover-div .text-btn {
+  border: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.mens-banner {
+  display: grid;
+  grid-template-columns: 30% 1fr 40%;
+  width: calc(100vw - 100px);
+}
+.mens-banner .boys-img {
+  filter: saturate(0%);
+}
+.mens-banner img:hover {
+  filter: none;
+}
+
+.banner-content div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 50%;
+  font-family: "Codec Pro Extrabold";
+  font-size: 3rem;
+  padding-left: 2rem;
+  background-color: #E8CA00;
+}
+.banner-content .empty-div {
+  background-color: transparent;
+}
+.banner-content img {
+  max-width: 100%;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+}
+.mini-grid img {
+  grid-column: span 3;
+  width: 100%;
+}
+.mini-grid .mini-arrow-container {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+}
+.mini-grid .mini-arrow-container svg {
+  height: 90%;
+  width: 90%;
+  fill: white;
+}
+.mini-grid .mini-arrow-container:hover {
+  background-color: white;
+  cursor: pointer;
+}
+.mini-grid .mini-arrow-container:hover svg {
+  fill: black;
+}
+.mini-grid .reverse-arrow {
+  background-color: #E8CA00;
+}
+.mini-grid .reverse-arrow svg {
+  fill: black;
+}/*# sourceMappingURL=app.css.map */
