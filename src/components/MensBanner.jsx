@@ -14,9 +14,10 @@ const MensBanner = () => {
             <div className="banner-content">
                 <div className="empty-div"></div>
                 <div><h2>Browse All</h2></div>
-                {/* <img src={logo} alt="Shodwe Logo" /> */}
             </div>
-            <img className='boys-img' src={mensFashion} alt="three male fashion models" />
+            <div className="boys-img">
+                <h2>Mens Wear</h2>
+            </div>
         </section>
     )
 }

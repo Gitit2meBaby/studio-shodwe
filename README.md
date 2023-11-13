@@ -1,8 +1,14 @@
-# React + Vite
+# Studio Shodwe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aims for this project are to create a visually appealing e-commerce site, minimal layout but with some nice UI tricks to keep it interesting.
 
-Currently, two official plugins are available:
+## API
+The fakeStore API is pretty limited, could not find a better alternative and could be nice just to create my own on Postman to pad out the categories a bit more.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Currently just iterating over available 20 returned to create the header categories
+
+## React
+See the need from the last few projects to get a handle on useReducer to limit my API calls and spread global state without causing rerenders anytime someone so much as glances at an icon.
+
+## E-commerce
+Will have a look at stripe API and try to integrate it into the site, if not I would atleast like to add firebase so the cart retains information and I can see if anyone has utilised the site.

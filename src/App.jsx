@@ -4,6 +4,7 @@ import ProductsDisplay from './components/ProductsDisplay';
 import Hero from './components/Hero';
 import Sidebar from './components/Sidebar';
 import MensBanner from './components/MensBanner';
+import ProductsCarousel from './components/ProductsCarousel'
 
 const initialState = {
   loading: false,
@@ -41,7 +42,6 @@ const fetchData = async (dispatch) => {
 };
 
 const App = () => {
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ const App = () => {
       <Hero />
       <ProductsDisplay data={state.data} />
       <MensBanner />
+      <ProductsCarousel data={state.data} categories={state.categories} />
     </>
   );
 }
