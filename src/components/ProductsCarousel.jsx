@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const ProductsCarousel = ({ data, categories }) => {
+const ProductsCarousel = ({ data }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [reducedData, setReducedData] = useState([]);
 
     const settings = {
         dots: true,
@@ -40,29 +41,39 @@ const ProductsCarousel = ({ data, categories }) => {
         afterChange: (current) => setCurrentSlide(current),
     };
 
-    const reducedData = data.filter((item) => item.category === 'jewelery');
-    console.log(reducedData);
-
+    useEffect(() => {
+        // Check if data exists before filtering
+        if (data && data.length > 0) {
+            const filteredData = data.filter((item) => item.category === 'jewelery');
+            setReducedData(filteredData);
+        }
+    }, [data]);
 
     return (
-        <section className="products-carousel">
-            <h2>womans jewelery</h2>
-            <Slider {...settings}>
-                {reducedData &&
-                    reducedData.length > 0 &&
-                    reducedData.map((product, index) => (
-                        <div key={product.id} className="slider-img">
-                            <img src={product.image} alt={product.title} />
-                            {currentSlide === index && (
-                                <div className="slider-hover-div">
-                                    <p>${product.price}</p>
+        <>
+            <section className="products-carousel">
+                <h2>womens jewelery</h2>
+                <Slider {...settings}>
+                    {reducedData &&
+                        reducedData.length > 0 &&
+                        reducedData.map((product, index) => (
+                            <div key={product.id} className="slider-img">
+                                <img src={product.image} alt={product.title} />
+                                {currentSlide === index && (
+                                    <div className="slider-hover-div">
+                                        <p>${product.price}</p>
 
-                                </div>
-                            )}
-                        </div>
-                    ))}
-            </Slider>
-        </section>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                </Slider>
+            </section>
+            <div className='jewellry-link'>
+                <div><h2>See collection</h2></div>
+                <div className='arrow-div'><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 0 0 0-48.4z"></path></svg></div>
+            </div>
+        </>
     );
 };
 

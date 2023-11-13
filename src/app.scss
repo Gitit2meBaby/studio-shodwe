@@ -277,6 +277,17 @@ aside {
         font-size: 2rem;
     }
 
+    h4 {
+        font-size: 2rem;
+    }
+
+    span {
+        color: rgb(202, 28, 28);
+        font-size: 1.4rem;
+        text-decoration: line-through;
+        padding-left: .5rem;
+    }
+
     p {
         font-size: 1.4rem;
         line-height: 1.6rem;
@@ -313,7 +324,7 @@ aside {
         color: white;
         text-align: center;
         font-size: 1.6rem;
-        line-height: 1.6rem;
+        line-height: 2rem;
     }
 
     p {
@@ -353,21 +364,48 @@ aside {
 }
 
 .banner-content {
-    div {
-        @include centered;
-        text-align: center;
-        height: 50%;
-        font-family: 'Codec Pro Extrabold';
-        font-size: 3rem;
-        background-color: $yellow;
+    div:first-of-type {
+        @include aligned;
+        width: 100%;
+        height: 100%
     }
 
-    .empty-div {
-        background-color: transparent;
+    .banner-text {
+        @include centered;
+        background-color: $yellow;
+        height: 50%;
+
+        h2 {
+            text-align: center;
+            font-family: 'Codec Pro Extrabold';
+            font-size: 3rem;
+            margin: 0;
+        }
     }
 
     img {
         max-width: 100%;
+    }
+}
+
+.mini-arrow-container {
+    background-color: black;
+    @include centered;
+    height: 150px;
+
+    svg {
+        height: 90%;
+        width: 90%;
+        fill: white;
+    }
+}
+
+.mini-arrow-container:hover {
+    background-color: white;
+    cursor: pointer;
+
+    svg {
+        fill: black;
     }
 }
 
@@ -379,27 +417,7 @@ aside {
     img {
         grid-column: span 3;
         width: 100%;
-    }
-
-    .mini-arrow-container {
-        background-color: black;
-        @include centered;
-        height: 150px;
-
-        svg {
-            height: 90%;
-            width: 90%;
-            fill: white;
-        }
-    }
-
-    .mini-arrow-container:hover {
-        background-color: white;
-        cursor: pointer;
-
-        svg {
-            fill: black;
-        }
+        height: 100%;
     }
 
     .reverse-arrow {
@@ -437,23 +455,41 @@ aside {
     }
 }
 
+.boys-img:hover {
+    filter: none;
+    transition: all 1s ease-in-out;
+
+    h2 {
+        transition: all 1s ease-in-out;
+        color: white;
+    }
+}
+
+#mensLink {
+    margin-right: 0.3rem;
+    width: 650px;
+    margin-bottom: 0;
+}
+
 // PRODUCTS SLIDER CAROUSEL (REACT SLICK)
 .products-carousel {
     position: relative;
+    padding: 6rem 0 2rem 0;
 
     h2 {
         font-family: 'Codec Pro Extrabold';
         position: absolute;
-        top: 20%;
+        top: 30%;
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 18rem;
         text-transform: uppercase;
+        text-align: center;
         z-index: 10;
         letter-spacing: -.8rem;
         line-height: 12.5rem;
         opacity: .1;
-        padding-right: 1rem;
+        padding-right: 1.2rem;
     }
 }
 
@@ -512,5 +548,177 @@ aside {
         font-size: 1rem;
         opacity: 1;
         transition: all 1s ease-in-out
+    }
+}
+
+// JEWELLRY LINK
+.jewellry-link {
+    display: grid;
+    grid-template-columns: 80% 1fr;
+    height: 100px;
+    width: 40vw;
+    padding-right: 100px;
+    margin-left: auto;
+    margin-bottom: 6rem;
+    cursor: pointer;
+
+    div:first-of-type {
+        background-color: $yellow;
+        @include aligned;
+        padding-left: 1rem;
+
+        h2 {
+            font-family: 'Codec Pro Extrabold';
+            text-transform: uppercase;
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: .5rem;
+            margin-top: 0.5rem;
+        }
+    }
+
+    div:first-of-type:hover {
+        background-color: $less-black;
+
+        h2 {
+            color: $yellow;
+        }
+    }
+
+    div:last-of-type {
+        background-color: black;
+        @include aligned;
+        justify-content: center;
+        cursor: pointer;
+
+        svg {
+            fill: white;
+            height: 80%;
+            width: 80%;
+        }
+    }
+
+    div:last-of-type:hover {
+        background-color: white;
+
+        svg {
+            fill: black;
+        }
+    }
+}
+
+// WOMENS CLOTHING SECTION
+.womens-primary {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    padding: 0rem 100px 2rem 2rem;
+
+
+    img {
+        max-height: 600px;
+        margin: auto;
+    }
+}
+
+.womens-primary-content {
+    padding: 2rem;
+    @include column;
+
+    h2 {
+        font-family: 'Codec Pro Extrabold';
+        font-size: 3.4rem;
+    }
+
+
+    h3 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    h4 {
+        font-size: 2rem;
+    }
+
+    span {
+        color: rgb(202, 28, 28);
+        font-size: 1.4rem;
+        text-decoration: line-through;
+        padding-left: .5rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        margin: 0;
+    }
+
+    .text-btn {
+        background-color: transparent;
+        border: none;
+        margin-left: auto;
+        padding-right: 4rem;
+        text-decoration: underline;
+        margin-bottom: 1rem;
+        cursor: pointer;
+    }
+}
+
+// ELECTRONICS SECTION
+.electronics-grid {
+    display: grid;
+    grid-template-columns: 1fr 60%;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 80vh;
+    width: calc(100vw - 120px);
+    padding: 6rem 0;
+}
+
+.electronic-feature {
+    position: relative;
+    @include column;
+    grid-row: span 2;
+
+    p {
+        font-family: 'Codec Pro Extrabold';
+        text-transform: uppercase;
+        color: #ffffff;
+        margin: 0;
+        z-index: 5;
+        font-size: 7rem;
+        letter-spacing: -.2rem;
+        padding: 1rem 0 0 1rem;
+    }
+
+    img {
+        position: absolute;
+    }
+
+    .text-btn {
+        font-family: 'Codec Pro Extrabold';
+        font-size: 1.4rem;
+        z-index: 5;
+        align-self: flex-start;
+        margin-left: 1.5rem;
+        border: none;
+        background-color: white;
+        text-transform: uppercase;
+        padding: 1rem 2rem;
+        margin-top: 2rem;
+    }
+}
+
+.electronics-secondary {
+    max-height: 300px;
+
+    img {
+        max-height: 300px;
+    }
+}
+
+.electronics-small {
+    max-height: 300px;
+
+    img {
+        max-height: 300px;
     }
 }

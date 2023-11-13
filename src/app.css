@@ -231,6 +231,15 @@ aside .sidebar .active-location {
   margin: 0;
   font-size: 2rem;
 }
+.product-main-content h4 {
+  font-size: 2rem;
+}
+.product-main-content span {
+  color: rgb(202, 28, 28);
+  font-size: 1.4rem;
+  text-decoration: line-through;
+  padding-left: 0.5rem;
+}
 .product-main-content p {
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -268,7 +277,7 @@ aside .sidebar .active-location {
   color: white;
   text-align: center;
   font-size: 1.6rem;
-  line-height: 1.6rem;
+  line-height: 2rem;
 }
 .hover-div p {
   color: lightgray;
@@ -302,21 +311,48 @@ aside .sidebar .active-location {
   filter: none;
 }
 
-.banner-content div {
+.banner-content div:first-of-type {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.banner-content .banner-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  background-color: #E8CA00;
   height: 50%;
+}
+.banner-content .banner-text h2 {
+  text-align: center;
   font-family: "Codec Pro Extrabold";
   font-size: 3rem;
-  background-color: #E8CA00;
-}
-.banner-content .empty-div {
-  background-color: transparent;
+  margin: 0;
 }
 .banner-content img {
   max-width: 100%;
+}
+
+.mini-arrow-container {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+}
+.mini-arrow-container svg {
+  height: 90%;
+  width: 90%;
+  fill: white;
+}
+
+.mini-arrow-container:hover {
+  background-color: white;
+  cursor: pointer;
+}
+.mini-arrow-container:hover svg {
+  fill: black;
 }
 
 .mini-grid {
@@ -327,25 +363,7 @@ aside .sidebar .active-location {
 .mini-grid img {
   grid-column: span 3;
   width: 100%;
-}
-.mini-grid .mini-arrow-container {
-  background-color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 150px;
-}
-.mini-grid .mini-arrow-container svg {
-  height: 90%;
-  width: 90%;
-  fill: white;
-}
-.mini-grid .mini-arrow-container:hover {
-  background-color: white;
-  cursor: pointer;
-}
-.mini-grid .mini-arrow-container:hover svg {
-  fill: black;
+  height: 100%;
 }
 .mini-grid .reverse-arrow {
   background-color: #E8CA00;
@@ -379,22 +397,39 @@ aside .sidebar .active-location {
   transition: all 1s ease-in-out;
 }
 
+.boys-img:hover {
+  filter: none;
+  transition: all 1s ease-in-out;
+}
+.boys-img:hover h2 {
+  transition: all 1s ease-in-out;
+  color: white;
+}
+
+#mensLink {
+  margin-right: 0.3rem;
+  width: 650px;
+  margin-bottom: 0;
+}
+
 .products-carousel {
   position: relative;
+  padding: 6rem 0 2rem 0;
 }
 .products-carousel h2 {
   font-family: "Codec Pro Extrabold";
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 18rem;
   text-transform: uppercase;
+  text-align: center;
   z-index: 10;
   letter-spacing: -0.8rem;
   line-height: 12.5rem;
   opacity: 0.1;
-  padding-right: 1rem;
+  padding-right: 1.2rem;
 }
 
 .slick-list {
@@ -453,4 +488,157 @@ aside .sidebar .active-location {
   font-size: 1rem;
   opacity: 1;
   transition: all 1s ease-in-out;
+}
+
+.jewellry-link {
+  display: grid;
+  grid-template-columns: 80% 1fr;
+  height: 100px;
+  width: 40vw;
+  padding-right: 100px;
+  margin-left: auto;
+  margin-bottom: 6rem;
+  cursor: pointer;
+}
+.jewellry-link div:first-of-type {
+  background-color: #E8CA00;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+.jewellry-link div:first-of-type h2 {
+  font-family: "Codec Pro Extrabold";
+  text-transform: uppercase;
+  font-size: 3rem;
+  margin: 0;
+  letter-spacing: 0.5rem;
+  margin-top: 0.5rem;
+}
+.jewellry-link div:first-of-type:hover {
+  background-color: rgb(59, 59, 59);
+}
+.jewellry-link div:first-of-type:hover h2 {
+  color: #E8CA00;
+}
+.jewellry-link div:last-of-type {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.jewellry-link div:last-of-type svg {
+  fill: white;
+  height: 80%;
+  width: 80%;
+}
+.jewellry-link div:last-of-type:hover {
+  background-color: white;
+}
+.jewellry-link div:last-of-type:hover svg {
+  fill: black;
+}
+
+.womens-primary {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  padding: 0rem 100px 2rem 2rem;
+}
+.womens-primary img {
+  max-height: 600px;
+  margin: auto;
+}
+
+.womens-primary-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.womens-primary-content h2 {
+  font-family: "Codec Pro Extrabold";
+  font-size: 3.4rem;
+}
+.womens-primary-content h3 {
+  margin: 0;
+  font-size: 2rem;
+}
+.womens-primary-content h4 {
+  font-size: 2rem;
+}
+.womens-primary-content span {
+  color: rgb(202, 28, 28);
+  font-size: 1.4rem;
+  text-decoration: line-through;
+  padding-left: 0.5rem;
+}
+.womens-primary-content p {
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  margin: 0;
+}
+.womens-primary-content .text-btn {
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+  padding-right: 4rem;
+  text-decoration: underline;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.electronics-grid {
+  display: grid;
+  grid-template-columns: 1fr 60%;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 80vh;
+  width: calc(100vw - 120px);
+  padding: 6rem 0;
+}
+
+.electronic-feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  grid-row: span 2;
+}
+.electronic-feature p {
+  font-family: "Codec Pro Extrabold";
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  z-index: 5;
+  font-size: 7rem;
+  letter-spacing: -0.2rem;
+  padding: 1rem 0 0 1rem;
+}
+.electronic-feature img {
+  position: absolute;
+}
+.electronic-feature .text-btn {
+  font-family: "Codec Pro Extrabold";
+  font-size: 1.4rem;
+  z-index: 5;
+  align-self: flex-start;
+  margin-left: 1.5rem;
+  border: none;
+  background-color: white;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
+}
+
+.electronics-secondary {
+  max-height: 300px;
+}
+.electronics-secondary img {
+  max-height: 300px;
+}
+
+.electronics-small {
+  max-height: 300px;
+}
+.electronics-small img {
+  max-height: 300px;
 }/*# sourceMappingURL=app.css.map */

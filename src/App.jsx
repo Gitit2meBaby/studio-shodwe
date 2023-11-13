@@ -5,6 +5,8 @@ import Hero from './components/Hero';
 import Sidebar from './components/Sidebar';
 import MensBanner from './components/MensBanner';
 import ProductsCarousel from './components/ProductsCarousel'
+import Electronics from './components/Electronics';
+import WomensClothing from './components/WomensClothing';
 
 const initialState = {
   loading: false,
@@ -56,6 +58,8 @@ const App = () => {
       <ProductsDisplay data={state.data} />
       <MensBanner />
       <ProductsCarousel data={state.data} categories={state.categories} />
+      <WomensClothing data={state.data} />
+      <Electronics data={state.data} />
     </>
   );
 }

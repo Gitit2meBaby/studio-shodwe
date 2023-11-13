@@ -39,7 +39,9 @@ const ProductsDisplay = ({ data }) => {
                                     <h2>{firstWord}</h2>
                                     <h3>{titleRemainder}</h3>
                                     <p>{product.description}</p>
-                                    <p>${product.price}</p>
+                                    <h4>${product.price}
+                                        <span>{`   $${(product.price * 1.1).toFixed(2)}`}</span>
+                                    </h4>
                                     <button className='add-cart-btn'>Add to Cart</button>
                                 </div>
                             </div>
