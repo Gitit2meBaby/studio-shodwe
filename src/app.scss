@@ -38,6 +38,7 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 // variables
@@ -61,14 +62,43 @@ header {
     @include spaced;
     padding: 2rem 8rem 1.5rem 4rem;
 
+    img {
+        cursor: pointer;
+    }
+
     button {
+        @include textBtn;
         font-size: 1.5rem;
-        @include textBtn();
         padding-bottom: 0.5rem;
+        text-transform: capitalize;
     }
 
     button:hover {
         border-bottom: 2px solid $less-black;
+    }
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-dropdown {
+    z-index: 15;
+    position: absolute;
+    top: 3rem;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+
+    p {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+        margin: 0;
+    }
+
+    p:hover {
+        background-color: $yellow;
     }
 }
 
@@ -249,6 +279,11 @@ aside {
     cursor: pointer;
 }
 
+.add-cart-btn:hover {
+    transform: scale(1.1);
+    transition: transform .5s ease-in;
+}
+
 // first row
 .split-row {
     display: grid;
@@ -343,11 +378,18 @@ aside {
         letter-spacing: .2rem;
     }
 
+    .small-btn:hover {
+        transform: scale(1.2);
+        transition: transform .5s ease-in;
+    }
+
     .text-btn {
-        border: none;
-        background-color: transparent;
+        @include textBtn;
         color: white;
-        cursor: pointer;
+    }
+
+    .text-btn:hover {
+        text-decoration: underline;
     }
 }
 
@@ -653,13 +695,11 @@ aside {
     }
 
     .text-btn {
-        background-color: transparent;
-        border: none;
+        @include textBtn;
         margin-left: auto;
         padding-right: 4rem;
         text-decoration: underline;
         margin-bottom: 1rem;
-        cursor: pointer;
     }
 }
 
@@ -720,5 +760,102 @@ aside {
 
     img {
         max-height: 300px;
+    }
+}
+
+// FOOTER
+footer {
+    width: calc(100vw - 120px);
+    margin-top: 4rem;
+}
+
+.sale-bar {
+    background-color: $yellow;
+
+    h2 {
+        text-transform: uppercase;
+        font-size: 2.4rem;
+        letter-spacing: .3rem;
+        text-align: center;
+        padding: 1rem 0;
+        margin: 0;
+    }
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.footer-logo {
+    @include aligned;
+    justify-content: center;
+    background-color: black;
+
+    img {
+        cursor: pointer;
+    }
+}
+
+.credentials {
+    // background-color: $yellow;
+    border-top: 4px solid black;
+    border-bottom: 4px solid black;
+    padding: 1.5rem 1rem .5rem 3rem;
+
+    h4 {
+        font-family: 'Codec Pro Extrabold';
+        font-size: .9rem;
+        margin: 0;
+    }
+
+    p {
+        font-size: .9rem;
+    }
+}
+
+.footer-nav {
+    background-color: black;
+    padding: 1rem 1rem .5rem 3rem;
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        color: white;
+        font-size: 1.4rem;
+        text-transform: capitalize;
+        line-height: 2.4rem;
+    }
+
+    li:hover {
+        color: $yellow;
+        cursor: pointer;
+    }
+}
+
+.socials {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 1rem 1rem .5rem 3rem;
+    border: 4px solid black;
+
+
+    svg {
+        width: 70px;
+        height: 70px;
+        align-self: center;
+    }
+
+    svg:nth-of-type(3) {
+        grid-row: span 2
+    }
+
+    svg:hover {
+        cursor: pointer;
+        fill: $yellow;
     }
 }

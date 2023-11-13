@@ -1,12 +1,15 @@
 import { useEffect, useReducer, useState } from 'react';
+import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header';
+import ScrollToTop from './components/ScrollToTop'
 import ProductsDisplay from './components/ProductsDisplay';
 import Hero from './components/Hero';
 import Sidebar from './components/Sidebar';
 import MensBanner from './components/MensBanner';
 import ProductsCarousel from './components/ProductsCarousel'
-import Electronics from './components/Electronics';
+import Electronics from './pages/Electronics';
 import WomensClothing from './components/WomensClothing';
+import Footer from './components/Footer';
 
 const initialState = {
   loading: false,
@@ -53,13 +56,23 @@ const App = () => {
   return (
     <>
       <Header state={state} />
-      <Sidebar />
-      <Hero />
-      <ProductsDisplay data={state.data} />
-      <MensBanner />
-      <ProductsCarousel data={state.data} categories={state.categories} />
-      <WomensClothing data={state.data} />
-      <Electronics data={state.data} />
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Sidebar />
+            <Hero />
+            <ProductsDisplay data={state.data} />
+            <MensBanner />
+            <ProductsCarousel data={state.data} categories={state.categories} />
+            <WomensClothing data={state.data} />
+          </>
+        } />
+        <Route path="/electronics" element={<Electronics data={state.data} />} />
+
+      </Routes>
+      <Footer state={state} />
+      {/*  */}
     </>
   );
 }
