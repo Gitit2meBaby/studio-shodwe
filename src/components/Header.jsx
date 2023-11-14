@@ -3,10 +3,9 @@ import { NavLink } from "react-router-dom";
 import logo from '../assets/logo250.webp';
 
 const Header = ({ state }) => {
-    const [showDropdown, setShowDropdown] = useState(false);
+    const [openDropdowns, setOpenDropdowns] = useState({});
     const [brief, setBrief] = useState([]);
     const [remainder, setRemainder] = useState([]);
-    const [hoveredProductId, setHoveredProductId] = useState(null);
 
     const { data, categories } = state;
 
@@ -29,8 +28,25 @@ const Header = ({ state }) => {
         }
     }, [data]);
 
-    const handleMoreContent = (productId) => {
-        setHoveredProductId(productId);
+    const handleToggleDropdown = (category) => {
+        setOpenDropdowns((prevOpenDropdowns) => ({
+            ...prevOpenDropdowns,
+            [category]: true,
+        }));
+    }
+
+    const handleMouseLeave = (category) => {
+        setOpenDropdowns((prevOpenDropdowns) => ({
+            ...prevOpenDropdowns,
+            [category]: false,
+        }))
+    }
+
+    const handleMouseEnter = (category) => {
+        setOpenDropdowns((prevOpenDropdowns) => ({
+            ...prevOpenDropdowns,
+            [category]: true,
+        }))
     }
 
     return (
@@ -40,31 +56,21 @@ const Header = ({ state }) => {
             </div>
             {data && data.length > 0 ? (
                 categories.map((category) => (
-                    <div className="nav-item" key={category}>
-                        <button onClick={() => setShowDropdown(!showDropdown)}>
+                    <div className="nav-item" key={category}
+                        onMouseEnter={() => handleToggleDropdown(category)}
+                        onMouseLeave={() => handleMouseLeave(category)}>
+                        <button>
                             {category}
                         </button>
-                        {showDropdown && (
-                            <div className="nav-dropdown">
+                        {openDropdowns[category] && (
+                            <div className="nav-dropdown" onMouseEnter={() => handleMouseEnter(category)} onMouseLeave={() => handleMouseLeave(category)}>
                                 {data
                                     .filter((product) => product.category === category)
                                     .map((product) => (
                                         <React.Fragment key={product.id}>
-                                            <p
-                                                value={product.id}
-                                                onMouseOver={() => handleMoreContent(product.id)}
-                                            >
+                                            <p value={product.id} >
                                                 {brief[data.indexOf(product)]}
                                             </p>
-                                            {hoveredProductId === product.id && (
-                                                <p value={product.id}
-                                                    style={{
-                                                        backgroundColor: '#E8CA00', margin: '0',
-                                                        padding: '0 2rem'
-                                                    }}>
-                                                    {remainder[data.indexOf(product)]}
-                                                </p>
-                                            )}
                                         </React.Fragment>
                                     ))}
                             </div>

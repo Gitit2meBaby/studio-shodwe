@@ -579,45 +579,45 @@ aside .sidebar .active-location {
   fill: black;
 }
 
-.womens-primary {
+.primary {
   display: grid;
   grid-template-columns: 40% 1fr;
   padding: 0rem 100px 2rem 2rem;
 }
-.womens-primary img {
+.primary img {
   max-height: 600px;
   margin: auto;
 }
 
-.womens-primary-content {
+.primary-content {
   padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.womens-primary-content h2 {
+.primary-content h2 {
   font-family: "Codec Pro Extrabold";
   font-size: 3.4rem;
 }
-.womens-primary-content h3 {
+.primary-content h3 {
   margin: 0;
   font-size: 2rem;
 }
-.womens-primary-content h4 {
+.primary-content h4 {
   font-size: 2rem;
 }
-.womens-primary-content span {
+.primary-content span {
   color: rgb(202, 28, 28);
   font-size: 1.4rem;
   text-decoration: line-through;
   padding-left: 0.5rem;
 }
-.womens-primary-content p {
+.primary-content p {
   font-size: 1.4rem;
   line-height: 1.6rem;
   margin: 0;
 }
-.womens-primary-content .text-btn {
+.primary-content .text-btn {
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -628,13 +628,53 @@ aside .sidebar .active-location {
   margin-bottom: 1rem;
 }
 
+.page-layout {
+  padding: 0 8rem 0 4rem;
+}
+.page-layout img {
+  max-width: 400px;
+}
+.page-layout .btn-container {
+  padding-top: 3rem;
+}
+
+.second-row {
+  grid-template-columns: 60% 1fr;
+}
+.second-row img {
+  grid-column: 2;
+}
+.second-row .page-content {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .electronics-grid {
   display: grid;
-  grid-template-columns: 1fr 60%;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 1fr 67%;
+  grid-row: auto;
   height: 80vh;
   width: calc(100vw - 120px);
-  padding: 6rem 0;
+  padding-left: 4rem;
+  margin-bottom: 8rem;
+}
+
+.inner-grid {
+  display: grid;
+  grid-template-columns: 70% 1fr;
+}
+
+.title {
+  background-color: #E8CA00;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+}
+.title h1 {
+  font-family: "Codec Pro Extrabold";
+  text-transform: uppercase;
+  font-size: 4rem;
 }
 
 .electronic-feature {
@@ -652,36 +692,60 @@ aside .sidebar .active-location {
   z-index: 5;
   font-size: 7rem;
   letter-spacing: -0.2rem;
-  padding: 1rem 0 0 1rem;
+  padding: 1rem 0 0 3rem;
 }
 .electronic-feature img {
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .electronic-feature .text-btn {
   font-family: "Codec Pro Extrabold";
   font-size: 1.4rem;
   z-index: 5;
   align-self: flex-start;
-  margin-left: 1.5rem;
+  margin-left: 3.5rem;
   border: none;
   background-color: white;
   text-transform: uppercase;
   padding: 1rem 2rem;
   margin-top: 2rem;
+  cursor: pointer;
 }
 
-.electronics-secondary {
-  max-height: 300px;
-}
-.electronics-secondary img {
-  max-height: 300px;
+.person-img img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.electronics-small {
-  max-height: 300px;
+.arrows {
+  max-height: 100%;
 }
-.electronics-small img {
-  max-height: 300px;
+.arrows .arrow-container {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrows .arrow-container svg {
+  height: 90%;
+  width: 90%;
+  fill: white;
+}
+.arrows .arrow-container:nth-of-type(2) {
+  background-color: #E8CA00;
+}
+.arrows .arrow-container:nth-of-type(2) svg {
+  fill: black;
+}
+.arrows .arrow-container:nth-of-type(3),
+.arrows .arrow-container:hover {
+  background-color: white;
+  cursor: pointer;
+}
+.arrows .arrow-container:nth-of-type(3) svg,
+.arrows .arrow-container:hover svg {
+  fill: black;
 }
 
 footer {
@@ -767,4 +831,19 @@ footer {
 .socials svg:hover {
   cursor: pointer;
   fill: #E8CA00;
+}
+
+.off-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.off-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-in {
+  transform: translateX(0) !important;
+  opacity: 1 !important;
 }/*# sourceMappingURL=app.css.map */

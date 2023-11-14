@@ -57,10 +57,10 @@ const App = () => {
     <>
       <Header state={state} />
       <ScrollToTop />
+      <Sidebar />
       <Routes>
         <Route path="/" element={
           <>
-            <Sidebar />
             <Hero />
             <ProductsDisplay data={state.data} />
             <MensBanner />
@@ -69,10 +69,8 @@ const App = () => {
           </>
         } />
         <Route path="/electronics" element={<Electronics data={state.data} />} />
-
       </Routes>
       <Footer state={state} />
-      {/*  */}
     </>
   );
 }

@@ -58,9 +58,9 @@ const WomensClothing = ({ data }) => {
             {womens && womens.length > 0 && (
                 womens.map((product, index) => (
                     index === 0 && (
-                        <div className='womens-primary' key={product.id}>
+                        <div className='primary' key={product.id}>
                             <img src={product.image} alt={product.title} />
-                            <div className='womens-primary-content'>
+                            <div className='primary-content'>
                                 <h2>{firstWord}</h2>
                                 <h3>{titleRemainder}</h3>
                                 <h4>${product.price}
