@@ -1,43 +1,56 @@
-import { useState, useEffect, useRef } from 'react';
-import gadgets from '../assets/gadgets800.webp';
-import person from '../assets/person-with-phone400.webp';
+import React, { useState, useEffect, useRef, createRef } from 'react';
+import gadgets from '../assets/gadgets800.webp'
+import person from '../assets/person-with-phone400.webp'
 
 const Electronics = ({ data }) => {
     const [electronics, setElectronics] = useState([]);
-    const [isIntersecting, setIsIntersecting] = useState(false);
+    const refs = useRef([]);
 
-    const ref = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-            setIsIntersecting(entry.isIntersecting);
-        });
-
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-
-        return () => observer.disconnect();
-    }, []);
-
-    useEffect(() => {
-        if (isIntersecting && ref.current) {
-            ref.current.querySelectorAll(".slide").forEach((el) => {
-                el.classList.add("slide-in");
-            });
-        } else if (ref.current) {
-            ref.current.querySelectorAll(".slide").forEach((el) => {
-                el.classList.remove("slide-in");
-            });
-        }
-    }, [isIntersecting]);
-    // filter out electronics from data array
     useEffect(() => {
         if (data && data.length > 0) {
-            const electronics = data.filter((item) => item.category === 'electronics');
-            setElectronics(electronics);
+            const electronicsData = data.filter((item) => item.category === 'electronics');
+            setElectronics(electronicsData);
+
+            // Create refs for each element in electronics
+            refs.current = electronicsData.map(() => createRef());
         }
     }, [data]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        console.log('Element is in view:', entry.target);
+                        entry.target.classList.add('slide-in');
+                    } else {
+                        console.log('Element is out of view:', entry.target);
+                        // entry.target.classList.remove('slide-in');
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '50px 0px 0px 0px',
+            }
+        );
+
+
+        refs.current.forEach((ref) => {
+            if (ref.current) {
+                observer.observe(ref.current);
+            }
+        });
+
+        return () => {
+            // Cleanup by unobserving all elements when the component is unmounted
+            refs.current.forEach((ref) => {
+                if (ref.current && ref.current instanceof Element) {
+                    observer.unobserve(ref.current);
+                }
+            });
+        };
+    }, [electronics]);
 
     return (
         <section className="electronics">
@@ -72,10 +85,14 @@ const Electronics = ({ data }) => {
                     const titleRemainder = words.join(' ');
 
                     return (
-                        <div className={`primary page-layout ${index % 2 === 1 ? 'second-row' : ''}`}
+                        <div
+                            className={`primary page-layout ${index % 2 === 1 ? 'second-row' : ''}`}
                             key={product.id}
-                            ref={ref}>
-                            <img src={product.image}
+
+                        >
+                            <img
+                                ref={refs.current[index]}
+                                src={product.image}
                                 alt={product.title}
                                 className={`'slide ${index % 2 === 1 ? 'off-right' : 'off-left'}`}
                             />
@@ -88,7 +105,8 @@ const Electronics = ({ data }) => {
                                 <p>{product.description}</p>
                                 <div className="btn-container">
                                     <button className='add-cart-btn'>Add To Cart</button>
-                                </div>              </div>
+                                </div>
+                            </div>
                         </div>
                     );
                 })}
@@ -97,3 +115,8 @@ const Electronics = ({ data }) => {
 }
 
 export default Electronics;
+
+
+
+
+
