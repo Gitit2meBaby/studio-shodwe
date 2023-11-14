@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef, createRef } from 'react';
-import gadgets from '../assets/gadgets800.webp';
-import person from '../assets/person-with-phone400.webp';
+import mensClothing800 from '../assets/mensClothing800.webp'
 
-const Electronics = ({ data }) => {
-    const [electronics, setElectronics] = useState([]);
+const MensClothing = ({ data }) => {
+    const [mensClothing, setMensClothing] = useState([]);
     const imageRefs = useRef([]);
     const headingRefs = useRef([]);
     const subHeadingRefs = useRef([]);
@@ -11,14 +10,14 @@ const Electronics = ({ data }) => {
 
     useEffect(() => {
         if (data && data.length > 0) {
-            const electronicsData = data.filter((item) => item.category === 'electronics');
-            setElectronics(electronicsData);
+            const mensClothingData = data.filter((item) => item.category === "men's clothing");
+            setMensClothing(mensClothingData);
 
             // Create refs for each image and text element
-            imageRefs.current = electronicsData.map(() => createRef());
-            headingRefs.current = electronicsData.map(() => createRef());
-            subHeadingRefs.current = electronicsData.map(() => createRef());
-            textRefs.current = electronicsData.map(() => createRef());
+            imageRefs.current = mensClothingData.map(() => createRef());
+            headingRefs.current = mensClothingData.map(() => createRef());
+            subHeadingRefs.current = mensClothingData.map(() => createRef());
+            textRefs.current = mensClothingData.map(() => createRef());
         }
     }, [data]);
 
@@ -33,7 +32,7 @@ const Electronics = ({ data }) => {
             },
             {
                 threshold: 0.1,
-                rootMargin: '50px 0px 0px 0px',
+                rootMargin: '80px 0px 0px 0px',
             }
         );
 
@@ -88,38 +87,26 @@ const Electronics = ({ data }) => {
                 }
             });
         };
-    }, [electronics]);
+    }, [mensClothing]);
 
     return (
-        <section className="electronics">
-            <div className="electronics-grid">
-                <div className="title">
-                    <h1>Electronics</h1>
-                </div>
+        <section className="mens">
 
-                <div className='electronic-feature'>
-                    <img src={gadgets} alt="technology gadgets on a table" />
-                    <p>Learn..</p><p>Play...</p> <p>Discover.</p>
-                    <button className='text-btn'>Show Tech</button>
-                </div>
-
-                <div className="inner-grid">
-                    <div className="person-img">
-                        <img src={person} alt="person with phone" />
-                    </div>
-                    <div className="arrows">
-                        <div className="arrow-container"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z"></path></svg></div>
-                        <div className="arrow-container"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z"></path></svg></div>
-                        <div className="arrow-container"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z"></path></svg></div>
-                    </div>
+            <div className="mens-grid">
+                <div className="mens-feature">
+                    <img src={mensClothing800} alt="mens shoes and apparel" />
+                    <h2>Simple</h2>
+                    <h2>Strong</h2>
+                    <h2>Style</h2>
                 </div>
             </div>
 
-            {electronics &&
-                electronics.length > 0 &&
-                electronics.map((product, index) => {
+            {mensClothing &&
+                mensClothing.length > 0 &&
+                mensClothing.map((product, index) => {
                     const words = product.title.split(' ');
                     const firstWord = words.shift();
+                    const secondWord = words.shift();
                     const titleRemainder = words.join(' ');
 
                     return (
@@ -136,9 +123,9 @@ const Electronics = ({ data }) => {
                             />
                             <div className="primary-content page-content">
                                 <h2 className='set-far-down'
-                                    ref={headingRefs.current[index]}>{firstWord}</h2>
+                                    ref={headingRefs.current[index]}>{firstWord} {secondWord}</h2>
                                 <h3 className='set-down'
-                                    ref={headingRefs.current[index]}>{titleRemainder}</h3>
+                                    ref={subHeadingRefs.current[index]}>{titleRemainder}</h3>
                                 <h4>${product.price}
                                     <span>{`   $${(product.price * 1.1).toFixed(2)}`}</span>
                                 </h4>
@@ -155,7 +142,7 @@ const Electronics = ({ data }) => {
     );
 }
 
-export default Electronics;
+export default MensClothing;
 
 
 

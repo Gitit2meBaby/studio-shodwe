@@ -10,6 +10,8 @@ import ProductsCarousel from './components/ProductsCarousel'
 import Electronics from './pages/Electronics';
 import WomensClothing from './components/WomensClothing';
 import Footer from './components/Footer';
+import Jewelery from './pages/Jewelery';
+import MensClothing from './pages/MensClothing';
 
 const initialState = {
   loading: false,
@@ -69,6 +71,8 @@ const App = () => {
           </>
         } />
         <Route path="/electronics" element={<Electronics data={state.data} />} />
+        <Route path="/mens-clothing" element={<MensClothing data={state.data} />} />
+        <Route path="/jewelery" element={<Jewelery data={state.data} />} />
       </Routes>
       <Footer state={state} />
     </>

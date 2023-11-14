@@ -537,7 +537,8 @@ aside .sidebar .active-location {
   width: 40vw;
   padding-right: 100px;
   margin-left: auto;
-  margin-bottom: 6rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
   cursor: pointer;
 }
 .jewellry-link div:first-of-type {
@@ -677,6 +678,8 @@ aside .sidebar .active-location {
   font-size: 4rem;
 }
 
+.mens-feature,
+.jewelery-feature,
 .electronic-feature {
   position: relative;
   display: flex;
@@ -684,6 +687,11 @@ aside .sidebar .active-location {
   justify-content: center;
   grid-row: span 2;
 }
+.mens-feature h2,
+.mens-feature p,
+.jewelery-feature h2,
+.jewelery-feature p,
+.electronic-feature h2,
 .electronic-feature p {
   font-family: "Codec Pro Extrabold";
   text-transform: uppercase;
@@ -694,11 +702,15 @@ aside .sidebar .active-location {
   letter-spacing: -0.2rem;
   padding: 1rem 0 0 3rem;
 }
+.mens-feature img,
+.jewelery-feature img,
 .electronic-feature img {
   position: absolute;
   width: 100%;
   height: 100%;
 }
+.mens-feature .text-btn,
+.jewelery-feature .text-btn,
 .electronic-feature .text-btn {
   font-family: "Codec Pro Extrabold";
   font-size: 1.4rem;
@@ -746,6 +758,43 @@ aside .sidebar .active-location {
 .arrows .arrow-container:nth-of-type(3) svg,
 .arrows .arrow-container:hover svg {
   fill: black;
+}
+
+.jewelery-grid {
+  width: calc(100vw - 120px);
+  display: grid;
+  grid-template-columns: 58% 10% 1fr 1fr;
+  grid-row: auto;
+  padding: 0 0 2rem 4rem;
+}
+.jewelery-grid .jewelery-feature {
+  max-height: 600px;
+}
+.jewelery-grid div:last-of-type {
+  grid-column: span 2;
+}
+.jewelery-grid div:last-of-type img {
+  min-width: 100%;
+}
+
+.jewelery-title {
+  grid-column: span 3;
+}
+
+.flex-arrows .arrow-container {
+  width: 100%;
+  height: 130px;
+}
+.flex-arrows .arrow-container:nth-of-type(4) {
+  background-color: transparent;
+}
+.flex-arrows .arrow-container:nth-of-type(4) svg {
+  fill: #E8CA00;
+}
+
+.mens-grid {
+  width: calc(100vw - 120px);
+  padding: 0 0 2rem 4rem;
 }
 
 footer {
@@ -843,8 +892,19 @@ footer {
   opacity: 0;
 }
 
+.set-far-down {
+  transform: translateY(40%);
+  opacity: 0;
+}
+
+.set-down {
+  transform: translateY(20%);
+  opacity: 0;
+}
+
 .slide-in {
   transform: translateX(0) !important;
+  transform: translateY(0) !important;
   opacity: 1 !important;
   transition: all 0.8s ease-out;
 }/*# sourceMappingURL=app.css.map */

@@ -601,7 +601,8 @@ aside {
     width: 40vw;
     padding-right: 100px;
     margin-left: auto;
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
     cursor: pointer;
 
     div:first-of-type {
@@ -758,11 +759,14 @@ aside {
     }
 }
 
+.mens-feature,
+.jewelery-feature,
 .electronic-feature {
     position: relative;
     @include column;
     grid-row: span 2;
 
+    h2,
     p {
         font-family: 'Codec Pro Extrabold';
         text-transform: uppercase;
@@ -833,6 +837,53 @@ aside {
             fill: black;
         }
     }
+}
+
+// JEWELERY PAGE
+.jewelery-grid {
+    width: calc(100vw - 120px);
+    display: grid;
+    grid-template-columns: 58% 10% 1fr 1fr;
+    grid-row: auto;
+    padding: 0 0 2rem 4rem;
+
+    .jewelery-feature {
+        max-height: 600px;
+    }
+
+    div:last-of-type {
+        grid-column: span 2;
+
+        img {
+            min-width: 100%;
+        }
+    }
+}
+
+.jewelery-title {
+    grid-column: span 3;
+}
+
+.flex-arrows {
+
+    .arrow-container {
+        width: 100%;
+        height: 130px;
+    }
+
+    .arrow-container:nth-of-type(4) {
+        background-color: transparent;
+
+        svg {
+            fill: $yellow;
+        }
+    }
+}
+
+// MENS CLOTHING SECTION
+.mens-grid {
+    width: calc(100vw - 120px);
+    padding: 0 0 2rem 4rem;
 }
 
 // FOOTER
@@ -943,8 +994,19 @@ footer {
     opacity: 0;
 }
 
+.set-far-down {
+    transform: translateY(40%);
+    opacity: 0;
+}
+
+.set-down {
+    transform: translateY(20%);
+    opacity: 0;
+}
+
 .slide-in {
     transform: translateX(0) !important;
+    transform: translateY(0) !important;
     opacity: 1 !important;
     transition: all .8s ease-out;
 }

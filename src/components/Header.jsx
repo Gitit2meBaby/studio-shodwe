@@ -68,9 +68,9 @@ const Header = ({ state }) => {
                                     .filter((product) => product.category === category)
                                     .map((product) => (
                                         <React.Fragment key={product.id}>
-                                            <p value={product.id} >
+                                            <NavLink to={`/${category}`}><p value={product.id} >
                                                 {brief[data.indexOf(product)]}
-                                            </p>
+                                            </p></NavLink >
                                         </React.Fragment>
                                     ))}
                             </div>
