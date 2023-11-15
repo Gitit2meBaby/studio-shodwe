@@ -112,7 +112,7 @@ aside {
     background-color: white;
     @include spaced;
     flex-direction: column;
-    padding: 2rem 0 5rem 0;
+    padding: 2rem 0 1rem 0;
     z-index: 5;
 
     .cart-btn-container {
@@ -121,13 +121,14 @@ aside {
         padding: 0.5rem;
         @include centered;
         position: relative;
+        cursor: pointer;
 
         .cart-amount {
             position: absolute;
             top: -.2rem;
             right: -.2rem;
             background-color: $less-black;
-            padding: 0.25rem;
+            padding: 0.25rem .3rem;
             border-radius: 50%;
 
             p {
@@ -172,6 +173,49 @@ aside {
     font-size: 2rem;
     opacity: 0;
     transition: all 1s ease-in-out;
+}
+
+// CART POPUP
+.cart-modal {
+    position: absolute;
+    top: 2.3rem;
+    right: 4.8rem;
+    width: 360px;
+    background-color: #fff;
+    box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.5);
+
+    .cart-head {
+        background-color: $yellow;
+        border-bottom: 2px solid black;
+
+        h3 {
+            font-family: 'Codec Pro Extrabold';
+            font-size: 1.4rem;
+            margin: 0;
+            text-align: center;
+            padding: 1rem;
+        }
+    }
+}
+
+.cart-items {
+    padding: 1rem;
+}
+
+.cart-foot {
+    @include spaced;
+}
+
+.clear-btn {
+    @include textBtn;
+    font-family: 'Codec Pro Extrabold';
+    font-size: 1.2rem;
+    letter-spacing: .2rem;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    padding: 1rem 1rem;
+    border: 2px solid white;
 }
 
 // HERO SECTION
@@ -429,12 +473,23 @@ aside {
     img {
         max-width: 100%;
     }
+
+    .mini-arrow-container:last-of-type {
+        transform: translateX(0);
+        transform: translateY(-40%);
+        background-color: #fff;
+
+        svg {
+            fill: black;
+        }
+    }
 }
 
 .mini-arrow-container {
     background-color: black;
     @include centered;
     height: 150px;
+    transform: translateX(-210%);
 
     svg {
         height: 90%;
@@ -760,6 +815,11 @@ aside {
     }
 }
 
+.electronics-title {
+    border-right: 10px solid white;
+    border-bottom: 10px solid white;
+}
+
 .mens-feature,
 .jewelery-feature,
 .electronic-feature {
@@ -801,6 +861,8 @@ aside {
 }
 
 .person-img {
+    border-right: 10px solid white;
+
     img {
         max-width: 100%;
         max-height: 100%;
@@ -809,6 +871,7 @@ aside {
 
 .arrows {
     max-height: 100%;
+    border-right: 10px solid white;
 
     .arrow-container {
         background-color: black;
@@ -863,9 +926,12 @@ aside {
 
 .jewelery-title {
     grid-column: span 3;
+    border-left: 10px solid white;
 }
 
 .flex-arrows {
+    margin-top: 10px;
+    border-right: none;
 
     .arrow-container {
         width: 100%;
@@ -881,10 +947,47 @@ aside {
     }
 }
 
+.jewelery-secondary {
+    border-top: 10px solid white;
+    border-left: 10px solid white;
+}
+
 // MENS CLOTHING SECTION
 .mens-grid {
     width: calc(100vw - 120px);
     padding: 0 0 2rem 4rem;
+    display: grid;
+    grid-template-columns: 55% 10% 1fr;
+    grid-row: 60% 1fr;
+    grid-row: auto;
+}
+
+.mens-feature {
+    border-right: 10px solid white;
+}
+
+.mens-arrows {
+    grid-row: span 2;
+    @include column;
+    border-right: none;
+}
+
+.mens-title {
+    border-left: 10px solid white;
+}
+
+.img-box {
+    max-height: 300px;
+    display: flex;
+    border-top: 10px solid white;
+    margin-left: 10px;
+
+    img:last-of-type {
+        max-height: 200px;
+        justify-self: center;
+        align-self: center;
+        margin-left: 10px;
+    }
 }
 
 // FOOTER
@@ -935,6 +1038,8 @@ footer {
 
     p {
         font-size: .9rem;
+        padding: 0.5rem 0 1.2rem 1rem;
+        margin: 0;
     }
 }
 
@@ -985,6 +1090,14 @@ footer {
 }
 
 // DYNAMIC CLASSES
+.too-black {
+    background-color: black !important;
+
+    svg {
+        fill: white !important;
+    }
+}
+
 .off-right {
     transform: translateX(100%);
     opacity: 0;
@@ -1005,11 +1118,21 @@ footer {
     opacity: 0;
 }
 
+.slide-in-slow-speed,
+.slide-in-med-speed,
 .slide-in {
     transform: translateX(0) !important;
     transform: translateY(0) !important;
     opacity: 1 !important;
     transition: all .8s ease-out;
+}
+
+.slide-in-med-speed {
+    transition: all 1s ease-out;
+}
+
+.slide-in-slow-speed {
+    transition: all 1.2s ease-out;
 }
 
 .visible {

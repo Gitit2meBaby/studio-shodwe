@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, createRef, useCallback } from 'react';
+import { useState, useEffect, useRef, createRef, useCallback, useMemo } from 'react';
 import { useGlobalContext } from "../context"
 
 import gadgets from '../assets/gadgets800.webp';
@@ -8,7 +8,7 @@ const Electronics = ({ data }) => {
     const {
         scrollTarget, setScrollTarget, setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
-        setSidebarIconAmount, sidebarIconAmount, sidebarNumber
+        setSidebarIconAmount,
     } = useGlobalContext();
 
     const [electronics, setElectronics] = useState([]);
@@ -19,7 +19,7 @@ const Electronics = ({ data }) => {
     const subHeadingRefs = useRef([]);
     const textRefs = useRef([]);
 
-    // Get imcoming Data and filter for electronics category
+    // Get incoming Data and filter for electronics category
     useEffect(() => {
         if (data && data.length > 0) {
             const electronicsData = data.filter((item) => item.category === 'electronics');
@@ -30,39 +30,32 @@ const Electronics = ({ data }) => {
             headingRefs.current = electronicsData.map(() => createRef());
             subHeadingRefs.current = electronicsData.map(() => createRef());
             textRefs.current = electronicsData.map(() => createRef());
-        }
 
-        // Set defaults for the sidebar
-        setPage('electronics');
-        setSidebarText("scroll down");
-        setSidebarIcon(1);
-        setSidebarNumber('01');
-        setIsVisible(true);
-        setSidebarIconAmount(electronics.length + 1);
+        }
     }, [data]);
 
-    // Seperate the home observer because it is bucking with the rest
-    const homeObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setPage('electronics');
-                    setSidebarText("scroll down");
-                    setSidebarIcon(1);
-                    setSidebarNumber('01');
-                    setIsVisible(true);
-                    setSidebarIconAmount(electronics.length + 1);
-                    console.log(`${new Date().toISOString()} - Home Observer Entry is intersecting for home/default value`);
-                }
-            });
-        },
-        {
-            threshold: 0.01,
-            rootMargin: '-100px 0px 100px 0px',
-        }
-    );
+    // Seperate the home observer, useMemo needed so i can use homeObserver in dependecy array to set values on load
+    const homeObserver = useMemo(() => (
+        new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setPage('electronics');
+                        setSidebarText("scroll down");
+                        setSidebarIcon(1);
+                        setSidebarNumber('01');
+                        setIsVisible(true);
+                        setSidebarIconAmount(electronics.length + 1);
+                    }
+                });
+            },
+            {
+                threshold: 0.01,
+                rootMargin: '-100px 0px 100px 0px',
+            }
+        )
+    ), [electronics.length]);
 
-    // Use the homeObserver for your home ref
     useEffect(() => {
         const homeRef = electronicsHome.current;
         if (homeRef) {
@@ -72,28 +65,22 @@ const Electronics = ({ data }) => {
                 homeObserver.unobserve(homeRef);
             };
         }
-    }, []);
+    }, [homeObserver]);
 
     //interaction observers to handle scrollTo and sidebar
     const setupIntersectionObserver = useCallback(
         (product, index, firstWord) => {
-            const observerId = `Observer ${index}`;
 
             return new IntersectionObserver(
                 (entries) => {
-                    const timestamp = new Date().toISOString();
-
-                    console.log(`${timestamp} - ${observerId} Triggered for ${product.title}, Index: ${index}`);
 
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
-                            setPage('electronics');
                             setSidebarText(firstWord);
                             setSidebarIcon((index + 1) + 1);
                             setSidebarNumber(`0${(index + 1) + 1}`);
                             setIsVisible(true);
                             setSidebarIconAmount(electronics.length + 1);
-                            console.log(`${timestamp} - ${observerId} Entry is intersecting for ${product.title}`);
                         }
                     });
                 },
@@ -103,7 +90,7 @@ const Electronics = ({ data }) => {
                 }
             );
         },
-        [setPage, setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible, setSidebarIconAmount, electronics.length]
+        [setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible, setSidebarIconAmount, electronics.length]
     );
 
     useEffect(() => {
@@ -213,7 +200,7 @@ const Electronics = ({ data }) => {
     return (
         <section className="electronics">
             <div className="electronics-grid">
-                <div className="title">
+                <div className="title electronics-title">
                     <h1>Electronics</h1>
                 </div>
 

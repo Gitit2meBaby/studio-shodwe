@@ -75,7 +75,7 @@ aside {
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  padding: 2rem 0 5rem 0;
+  padding: 2rem 0 1rem 0;
   z-index: 5;
 }
 aside .cart-btn-container {
@@ -86,13 +86,14 @@ aside .cart-btn-container {
   align-items: center;
   justify-content: center;
   position: relative;
+  cursor: pointer;
 }
 aside .cart-btn-container .cart-amount {
   position: absolute;
   top: -0.2rem;
   right: -0.2rem;
   background-color: rgb(59, 59, 59);
-  padding: 0.25rem;
+  padding: 0.25rem 0.3rem;
   border-radius: 50%;
 }
 aside .cart-btn-container .cart-amount p {
@@ -132,6 +133,51 @@ aside .sidebar .active-location {
   font-size: 2rem;
   opacity: 0;
   transition: all 1s ease-in-out;
+}
+
+.cart-modal {
+  position: absolute;
+  top: 2.3rem;
+  right: 4.8rem;
+  width: 360px;
+  background-color: #fff;
+  box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.5);
+}
+.cart-modal .cart-head {
+  background-color: #E8CA00;
+  border-bottom: 2px solid black;
+}
+.cart-modal .cart-head h3 {
+  font-family: "Codec Pro Extrabold";
+  font-size: 1.4rem;
+  margin: 0;
+  text-align: center;
+  padding: 1rem;
+}
+
+.cart-items {
+  padding: 1rem;
+}
+
+.cart-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clear-btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Codec Pro Extrabold";
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  padding: 1rem 1rem;
+  border: 2px solid white;
 }
 
 .hero {
@@ -376,6 +422,14 @@ aside .sidebar .active-location {
 .banner-content img {
   max-width: 100%;
 }
+.banner-content .mini-arrow-container:last-of-type {
+  transform: translateX(0);
+  transform: translateY(-40%);
+  background-color: #fff;
+}
+.banner-content .mini-arrow-container:last-of-type svg {
+  fill: black;
+}
 
 .mini-arrow-container {
   background-color: black;
@@ -383,6 +437,7 @@ aside .sidebar .active-location {
   align-items: center;
   justify-content: center;
   height: 150px;
+  transform: translateX(-210%);
 }
 .mini-arrow-container svg {
   height: 90%;
@@ -681,6 +736,11 @@ aside .sidebar .active-location {
   font-size: 4rem;
 }
 
+.electronics-title {
+  border-right: 10px solid white;
+  border-bottom: 10px solid white;
+}
+
 .mens-feature,
 .jewelery-feature,
 .electronic-feature {
@@ -728,6 +788,9 @@ aside .sidebar .active-location {
   cursor: pointer;
 }
 
+.person-img {
+  border-right: 10px solid white;
+}
 .person-img img {
   max-width: 100%;
   max-height: 100%;
@@ -735,6 +798,7 @@ aside .sidebar .active-location {
 
 .arrows {
   max-height: 100%;
+  border-right: 10px solid white;
 }
 .arrows .arrow-container {
   background-color: black;
@@ -782,8 +846,13 @@ aside .sidebar .active-location {
 
 .jewelery-title {
   grid-column: span 3;
+  border-left: 10px solid white;
 }
 
+.flex-arrows {
+  margin-top: 10px;
+  border-right: none;
+}
 .flex-arrows .arrow-container {
   width: 100%;
   height: 130px;
@@ -795,9 +864,47 @@ aside .sidebar .active-location {
   fill: #E8CA00;
 }
 
+.jewelery-secondary {
+  border-top: 10px solid white;
+  border-left: 10px solid white;
+}
+
 .mens-grid {
   width: calc(100vw - 120px);
   padding: 0 0 2rem 4rem;
+  display: grid;
+  grid-template-columns: 55% 10% 1fr;
+  grid-row: 60% 1fr;
+  grid-row: auto;
+}
+
+.mens-feature {
+  border-right: 10px solid white;
+}
+
+.mens-arrows {
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: none;
+}
+
+.mens-title {
+  border-left: 10px solid white;
+}
+
+.img-box {
+  max-height: 300px;
+  display: flex;
+  border-top: 10px solid white;
+  margin-left: 10px;
+}
+.img-box img:last-of-type {
+  max-height: 200px;
+  justify-self: center;
+  align-self: center;
+  margin-left: 10px;
 }
 
 footer {
@@ -844,6 +951,8 @@ footer {
 }
 .credentials p {
   font-size: 0.9rem;
+  padding: 0.5rem 0 1.2rem 1rem;
+  margin: 0;
 }
 
 .footer-nav {
@@ -885,6 +994,13 @@ footer {
   fill: #E8CA00;
 }
 
+.too-black {
+  background-color: black !important;
+}
+.too-black svg {
+  fill: white !important;
+}
+
 .off-right {
   transform: translateX(100%);
   opacity: 0;
@@ -905,11 +1021,21 @@ footer {
   opacity: 0;
 }
 
+.slide-in-slow-speed,
+.slide-in-med-speed,
 .slide-in {
   transform: translateX(0) !important;
   transform: translateY(0) !important;
   opacity: 1 !important;
   transition: all 0.8s ease-out;
+}
+
+.slide-in-med-speed {
+  transition: all 1s ease-out;
+}
+
+.slide-in-slow-speed {
+  transition: all 1.2s ease-out;
 }
 
 .visible {

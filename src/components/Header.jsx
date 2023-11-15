@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from '../assets/logo250.webp';
 
 const Header = ({ state }) => {
@@ -51,17 +51,17 @@ const Header = ({ state }) => {
 
     return (
         <header>
-            <div className="logo-container">
+            <Link to={'/'}><div className="logo-container">
                 <img src={logo} alt="studio shodwe logo" />
-            </div>
+            </div></Link>
             {data && data.length > 0 ? (
                 categories.map((category) => (
                     <div className="nav-item" key={category}
                         onMouseEnter={() => handleToggleDropdown(category)}
                         onMouseLeave={() => handleMouseLeave(category)}>
-                        <button>
+                        <NavLink to={category}><button>
                             {category}
-                        </button>
+                        </button></NavLink>
                         {openDropdowns[category] && (
                             <div className="nav-dropdown" onMouseEnter={() => handleMouseEnter(category)} onMouseLeave={() => handleMouseLeave(category)}>
                                 {data

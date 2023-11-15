@@ -52,7 +52,7 @@ const ProductsCarousel = ({ data }) => {
         infinite: true,
         autoplay: true,
         speed: 500,
-        autoplaySpeed: 4000,
+        autoplaySpeed: 2500,
         slidesToShow: 3,
         slidesToScroll: 1,
         swipeToSlide: true,

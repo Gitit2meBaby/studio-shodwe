@@ -74,7 +74,7 @@ const App = () => {
           </>
         } />
         <Route path="/electronics" element={<Electronics page='electronics' data={state.data} />} />
-        <Route path="/mens-clothing" element={<MensClothing page='mens' data={state.data} />} />
+        <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} />} />
         <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} />
       </Routes>
       <Footer state={state} />

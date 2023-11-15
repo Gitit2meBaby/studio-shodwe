@@ -56,6 +56,7 @@ const ProductsDisplay = ({ data }) => {
         }
     }, [data]);
 
+
     const handleMouseOver = (productId) => {
         setHoverStates((prevHoverStates) => ({ ...prevHoverStates, [productId]: true }));
     };
