@@ -1,14 +1,25 @@
-import { useState, useEffect, useRef, createRef } from 'react';
+import { useState, useEffect, useRef, createRef, useCallback } from 'react';
+import { useGlobalContext } from "../context"
+
 import gadgets from '../assets/gadgets800.webp';
 import person from '../assets/person-with-phone400.webp';
 
 const Electronics = ({ data }) => {
+    const {
+        scrollTarget, setScrollTarget, setPage,
+        setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
+        setSidebarIconAmount, sidebarIconAmount, sidebarNumber
+    } = useGlobalContext();
+
     const [electronics, setElectronics] = useState([]);
+
+    const electronicsHome = useRef()
     const imageRefs = useRef([]);
     const headingRefs = useRef([]);
     const subHeadingRefs = useRef([]);
     const textRefs = useRef([]);
 
+    // Get imcoming Data and filter for electronics category
     useEffect(() => {
         if (data && data.length > 0) {
             const electronicsData = data.filter((item) => item.category === 'electronics');
@@ -20,7 +31,116 @@ const Electronics = ({ data }) => {
             subHeadingRefs.current = electronicsData.map(() => createRef());
             textRefs.current = electronicsData.map(() => createRef());
         }
+
+        // Set defaults for the sidebar
+        setPage('electronics');
+        setSidebarText("scroll down");
+        setSidebarIcon(1);
+        setSidebarNumber('01');
+        setIsVisible(true);
+        setSidebarIconAmount(electronics.length + 1);
     }, [data]);
+
+    // Seperate the home observer because it is bucking with the rest
+    const homeObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setPage('electronics');
+                    setSidebarText("scroll down");
+                    setSidebarIcon(1);
+                    setSidebarNumber('01');
+                    setIsVisible(true);
+                    setSidebarIconAmount(electronics.length + 1);
+                    console.log(`${new Date().toISOString()} - Home Observer Entry is intersecting for home/default value`);
+                }
+            });
+        },
+        {
+            threshold: 0.01,
+            rootMargin: '-100px 0px 100px 0px',
+        }
+    );
+
+    // Use the homeObserver for your home ref
+    useEffect(() => {
+        const homeRef = electronicsHome.current;
+        if (homeRef) {
+            homeObserver.observe(homeRef);
+
+            return () => {
+                homeObserver.unobserve(homeRef);
+            };
+        }
+    }, []);
+
+    //interaction observers to handle scrollTo and sidebar
+    const setupIntersectionObserver = useCallback(
+        (product, index, firstWord) => {
+            const observerId = `Observer ${index}`;
+
+            return new IntersectionObserver(
+                (entries) => {
+                    const timestamp = new Date().toISOString();
+
+                    console.log(`${timestamp} - ${observerId} Triggered for ${product.title}, Index: ${index}`);
+
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setPage('electronics');
+                            setSidebarText(firstWord);
+                            setSidebarIcon((index + 1) + 1);
+                            setSidebarNumber(`0${(index + 1) + 1}`);
+                            setIsVisible(true);
+                            setSidebarIconAmount(electronics.length + 1);
+                            console.log(`${timestamp} - ${observerId} Entry is intersecting for ${product.title}`);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.01,
+                    rootMargin: '50px 0px -50px 0px',
+                }
+            );
+        },
+        [setPage, setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible, setSidebarIconAmount, electronics.length]
+    );
+
+    useEffect(() => {
+        // Set up Intersection Observers for each product
+        const productObservers = electronics.map((product, index) => {
+            const words = product.title.split(' ');
+            const firstWord = words.shift();
+            const titleRemainder = words.join(' ');
+
+            const observer = setupIntersectionObserver(product, index, firstWord);
+
+            return observer;
+        });
+
+        // Attach the observer to each product
+        electronics.forEach((product, index) => {
+            if (textRefs.current[index] && textRefs.current[index].current) {
+                productObservers[index].observe(textRefs.current[index].current);
+            }
+        });
+
+        // Clean up the observers
+        return () => {
+            productObservers.forEach((observer) => observer.disconnect());
+            setIsVisible(false);
+        };
+    }, [
+        electronics,
+        imageRefs,
+        setPage,
+        setSidebarText,
+        setSidebarIcon,
+        setSidebarNumber,
+        setSidebarIconAmount,
+        setIsVisible,
+        setupIntersectionObserver,
+    ]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -107,7 +227,7 @@ const Electronics = ({ data }) => {
                     <div className="person-img">
                         <img src={person} alt="person with phone" />
                     </div>
-                    <div className="arrows">
+                    <div ref={electronicsHome} className="arrows">
                         <div className="arrow-container"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z"></path></svg></div>
                         <div className="arrow-container"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z"></path></svg></div>
                         <div className="arrow-container"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M862 465.3h-81c-4.6 0-9 2-12.1 5.5L550 723.1V160c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v563.1L255.1 470.8c-3-3.5-7.4-5.5-12.1-5.5h-81c-6.8 0-10.5 8.1-6 13.2L487.9 861a31.96 31.96 0 0 0 48.3 0L868 478.5c4.5-5.2.8-13.2-6-13.2z"></path></svg></div>
@@ -138,7 +258,7 @@ const Electronics = ({ data }) => {
                                 <h2 className='set-far-down'
                                     ref={headingRefs.current[index]}>{firstWord}</h2>
                                 <h3 className='set-down'
-                                    ref={headingRefs.current[index]}>{titleRemainder}</h3>
+                                    ref={subHeadingRefs.current[index]}>{titleRemainder}</h3>
                                 <h4>${product.price}
                                     <span>{`   $${(product.price * 1.1).toFixed(2)}`}</span>
                                 </h4>
@@ -156,8 +276,3 @@ const Electronics = ({ data }) => {
 }
 
 export default Electronics;
-
-
-
-
-

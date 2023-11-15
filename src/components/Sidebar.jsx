@@ -33,6 +33,9 @@ const Sidebar = () => {
                 {sidebarIconAmount >= 7 &&
                     <div className={`page-locator ${sidebarIcon === 7 ? 'active-location' : ''}`}></div>
                 }
+                {sidebarIconAmount >= 8 &&
+                    <div className={`page-locator ${sidebarIcon === 8 ? 'active-location' : ''}`}></div>
+                }
 
                 <p className={`sidebar-text ${isVisible ? 'visible' : ''}`}>{sidebarNumber}</p>
             </div>
