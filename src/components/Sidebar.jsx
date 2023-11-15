@@ -1,4 +1,9 @@
+import { useGlobalContext } from "../context"
+
 const Sidebar = () => {
+    const { scrollTarget, setScrollTarget, setPage, sidebarText, setSidebarText, handleScrollTo, sidebarIcon, setSidebarIcon, sidebarNumber, setSidebarNumber, sidebarIconAmount, setSidebarIconAmount, isVisible, setIsVisible } = useGlobalContext();
+
+
     return (
 
         <aside>
@@ -7,11 +12,29 @@ const Sidebar = () => {
                 <div className="cart-amount"><p>0</p></div>
             </div>
             <div className="sidebar">
-                <p>Scroll Down</p>
-                <div className="page-locator active-location"></div>
-                <div className="page-locator"></div>
-                <div className="page-locator"></div>
-                <p>01</p>
+                <p className={`sidebar-text ${isVisible ? 'visible' : ''}`}
+                >{sidebarText}</p>
+
+                <div className={`page-locator ${sidebarIcon === 1 ? 'active-location' : ''}`}></div>
+
+                <div className={`page-locator ${sidebarIcon === 2 ? 'active-location' : ''}`}></div>
+
+                <div className={`page-locator ${sidebarIcon === 3 ? 'active-location' : ''}`}></div>
+
+                {sidebarIconAmount >= 4 &&
+                    <div className={`page-locator ${sidebarIcon === 4 ? 'active-location' : ''}`}></div>
+                }
+                {sidebarIconAmount >= 5 &&
+                    <div className={`page-locator ${sidebarIcon === 5 ? 'active-location' : ''}`}></div>
+                }
+                {sidebarIconAmount >= 6 &&
+                    <div className={`page-locator ${sidebarIcon === 6 ? 'active-location' : ''}`}></div>
+                }
+                {sidebarIconAmount >= 7 &&
+                    <div className={`page-locator ${sidebarIcon === 7 ? 'active-location' : ''}`}></div>
+                }
+
+                <p className={`sidebar-text ${isVisible ? 'visible' : ''}`}>{sidebarNumber}</p>
             </div>
         </aside>
     )

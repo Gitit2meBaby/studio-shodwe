@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useGlobalContext } from "../context"
 import gadgets from '../assets/gadgets800.webp'
 
 const WomensClothing = ({ data }) => {
+    const {
+        scrollTarget, setScrollTarget, setPage,
+        setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible
+    } = useGlobalContext();
+
     const [hoverStates, setHoverStates] = useState({});
     const [firstWord, setFirstWord] = useState('');
     const [titleRemainder, setTitleRemainder] = useState('');
@@ -10,6 +16,38 @@ const WomensClothing = ({ data }) => {
     const [initalContent, setInitialContent] = useState('')
     const [secondaryContent, setSecondaryContent] = useState('')
 
+    const finalSection = useRef();
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setPage('home')
+                        setSidebarText("Women's Clothing");
+                        setSidebarIcon(4);
+                        setSidebarNumber('04');
+                        setIsVisible(true)
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '150px 0px 0px 0px',
+            }
+        );
+
+        if (finalSection.current) {
+            observer.observe(finalSection.current);
+        }
+
+        return () => {
+            if (finalSection.current) {
+                setIsVisible(false)
+                observer.unobserve(finalSection.current);
+            }
+        };
+    }, [finalSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
 
     // filter out electronics from data array
     useEffect(() => {
@@ -53,7 +91,7 @@ const WomensClothing = ({ data }) => {
     }
 
     return (
-        <section className="womens-clothing">
+        <section ref={finalSection} className="womens-clothing">
 
             {womens && womens.length > 0 && (
                 womens.map((product, index) => (

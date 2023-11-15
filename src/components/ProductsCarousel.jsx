@@ -1,12 +1,51 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useGlobalContext } from "../context"
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const ProductsCarousel = ({ data }) => {
+    const {
+        scrollTarget, setScrollTarget, setPage,
+        setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible
+    } = useGlobalContext();
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const [reducedData, setReducedData] = useState([]);
+
+    const carouselSection = useRef()
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setPage('home')
+                        setSidebarText("Jewelery");
+                        setSidebarIcon(3);
+                        setSidebarNumber('03');
+                        setIsVisible(true)
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '150px 0px 0px 0px',
+            }
+        );
+
+        if (carouselSection.current) {
+            observer.observe(carouselSection.current);
+        }
+
+        return () => {
+            if (carouselSection.current) {
+                setIsVisible(false)
+                observer.unobserve(carouselSection.current);
+            }
+        };
+    }, [carouselSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
 
     const settings = {
         dots: true,
@@ -51,7 +90,7 @@ const ProductsCarousel = ({ data }) => {
 
     return (
         <>
-            <section className="products-carousel">
+            <section ref={carouselSection} className="products-carousel">
                 <h2>womens jewelery</h2>
                 <Slider {...settings}>
                     {reducedData &&

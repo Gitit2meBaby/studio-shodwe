@@ -160,17 +160,18 @@ aside {
             cursor: pointer;
         }
 
-        p {
-            font-size: 2rem;
-        }
-
         .active-location {
             background-color: $yellow;
             width: 20px;
             cursor: auto;
         }
     }
+}
 
+.sidebar-text {
+    font-size: 2rem;
+    opacity: 0;
+    transition: all 1s ease-in-out;
 }
 
 // HERO SECTION
@@ -1009,4 +1010,9 @@ footer {
     transform: translateY(0) !important;
     opacity: 1 !important;
     transition: all .8s ease-out;
+}
+
+.visible {
+    opacity: 1;
+    transition: all 1s ease-in-out;
 }

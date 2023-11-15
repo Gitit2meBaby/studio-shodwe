@@ -122,13 +122,16 @@ aside .sidebar p:first-of-type {
   margin-bottom: 2rem;
   cursor: pointer;
 }
-aside .sidebar p {
-  font-size: 2rem;
-}
 aside .sidebar .active-location {
   background-color: #E8CA00;
   width: 20px;
   cursor: auto;
+}
+
+.sidebar-text {
+  font-size: 2rem;
+  opacity: 0;
+  transition: all 1s ease-in-out;
 }
 
 .hero {
@@ -907,4 +910,9 @@ footer {
   transform: translateY(0) !important;
   opacity: 1 !important;
   transition: all 0.8s ease-out;
+}
+
+.visible {
+  opacity: 1;
+  transition: all 1s ease-in-out;
 }/*# sourceMappingURL=app.css.map */

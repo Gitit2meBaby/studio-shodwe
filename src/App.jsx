@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { Routes, Route } from 'react-router-dom'
+import { useGlobalContext } from './context';
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop'
 import ProductsDisplay from './components/ProductsDisplay';
@@ -50,6 +51,8 @@ const fetchData = async (dispatch) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { page, setPage } = useGlobalContext();
+
 
   useEffect(() => {
     fetchData(dispatch);
@@ -63,16 +66,16 @@ const App = () => {
       <Routes>
         <Route path="/" element={
           <>
-            <Hero />
-            <ProductsDisplay data={state.data} />
-            <MensBanner />
-            <ProductsCarousel data={state.data} categories={state.categories} />
-            <WomensClothing data={state.data} />
+            <Hero page='home' />
+            <ProductsDisplay data={state.data} page='home' />
+            <MensBanner page='home' />
+            <ProductsCarousel data={state.data} categories={state.categories} page='home' />
+            <WomensClothing data={state.data} page='home' />
           </>
         } />
-        <Route path="/electronics" element={<Electronics data={state.data} />} />
-        <Route path="/mens-clothing" element={<MensClothing data={state.data} />} />
-        <Route path="/jewelery" element={<Jewelery data={state.data} />} />
+        <Route path="/electronics" element={<Electronics page='electronics' data={state.data} />} />
+        <Route path="/mens-clothing" element={<MensClothing page='mens' data={state.data} />} />
+        <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} />
       </Routes>
       <Footer state={state} />
     </>

@@ -1,9 +1,50 @@
 import featureBG from '../assets/feature-bg.webp'
 import secondary from '../assets/secondary600.webp'
+import { useGlobalContext } from "../context"
+import { useEffect, useRef } from 'react'
+
 
 const Hero = () => {
+    const {
+        scrollTarget, setScrollTarget, setPage, sidebarText, setSidebarText, sidebarIcon, setSidebarIcon,
+        sidebarNumber, setSidebarNumber,
+        sidebarIconAmount, setSidebarIconAmount, setIsVisible
+    } = useGlobalContext();
+
+    const hero = useRef()
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setPage('home')
+                        setSidebarText("Scroll Down");
+                        setSidebarIcon(1);
+                        setSidebarNumber('01');
+                        setIsVisible(true)
+                    }
+                });
+            },
+        );
+
+        // Check if firstSection.current is not null before observing
+        if (hero.current) {
+            observer.observe(hero.current);
+        }
+
+        // Cleanup function
+        return () => {
+            // Check if firstSection.current is not null before unobserving
+            if (hero.current) {
+                setIsVisible(false)
+                observer.unobserve(hero.current);
+            }
+        };
+    }, [hero.current, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
+
     return (
-        <section className='hero'>
+        <section ref={hero} className='hero'>
 
             <div className='feature-img'>
                 <h1>Shodwe<br></br>E-MAGZ</h1>

@@ -1,11 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useGlobalContext } from "../context"
 
 const ProductsDisplay = ({ data }) => {
+    const {
+        scrollTarget, setScrollTarget, setPage,
+        setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
+    } = useGlobalContext();
+
     const [hoverStates, setHoverStates] = useState({});
     const [firstWord, setFirstWord] = useState('');
     const [titleRemainder, setTitleRemainder] = useState('');
 
-    // format the Title nicer by seperating the first word (needed useEffect because otherwise error if data is unavailable)
+    const firstSection = useRef();
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setPage('home')
+                        setSidebarText("Men's Clothing");
+                        setSidebarIcon(2);
+                        setSidebarNumber('02');
+                        setIsVisible(true)
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '150px 0px 0px 0px',
+            }
+        );
+
+        if (firstSection.current) {
+            observer.observe(firstSection.current);
+        }
+
+        return () => {
+            if (firstSection.current) {
+                setIsVisible(false)
+                observer.unobserve(firstSection.current);
+            }
+        };
+    }, [firstSection.current, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
+
+    // format the Title nicer by separating the first word (needed useEffect because otherwise error if data is unavailable)
     useEffect(() => {
         if (data && data.length > 0) {
             const splitTitle = data[0].title.split(' ');
@@ -19,15 +58,15 @@ const ProductsDisplay = ({ data }) => {
 
     const handleMouseOver = (productId) => {
         setHoverStates((prevHoverStates) => ({ ...prevHoverStates, [productId]: true }));
-    }
+    };
+
     const handleMouseOut = (productId) => {
         setHoverStates((prevHoverStates) => ({ ...prevHoverStates, [productId]: false }));
-    }
+    };
 
     return (
-        <section className="products-display">
+        <section ref={firstSection} className="products-display">
             {data && data.length > 0 && (
-
                 data.map((product) => (
                     <React.Fragment key={product.id}>
                         {product.id === 1 && (
@@ -55,7 +94,8 @@ const ProductsDisplay = ({ data }) => {
                     data.map((product) => (
                         <React.Fragment key={product.id}>
                             {product.id >= 2 && product.id <= 4 && (
-                                <div className='product-img-secondary'
+                                <div
+                                    className='product-img-secondary'
                                     onMouseOver={() => handleMouseOver(product.id)}
                                     onMouseOut={() => handleMouseOut(product.id)}
                                 >
@@ -78,6 +118,6 @@ const ProductsDisplay = ({ data }) => {
             </div>
         </section>
     );
+};
 
-}
 export default ProductsDisplay;
