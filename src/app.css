@@ -907,6 +907,37 @@ aside .sidebar .active-location {
   margin-left: 10px;
 }
 
+.womens-grid {
+  width: calc(100vw - 120px);
+  display: grid;
+  grid-template-columns: 13% 1fr 20% 1fr;
+  margin-bottom: 4rem;
+}
+.womens-grid .arrows {
+  grid-row: span 2;
+  max-height: 600px;
+  border-left: 10px solid white;
+}
+.womens-grid .arrows .arrow-container {
+  max-height: 100px;
+}
+
+.womens-feature {
+  grid-column: span 2;
+  position: relative;
+}
+.womens-feature img {
+  position: absolute;
+  width: 100%;
+}
+.womens-feature h2 {
+  z-index: 5;
+}
+
+.womens-title {
+  border: 10px solid white;
+}
+
 footer {
   width: calc(100vw - 120px);
   margin-top: 4rem;

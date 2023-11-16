@@ -13,6 +13,8 @@ import WomensClothing from './components/WomensClothing';
 import Footer from './components/Footer';
 import Jewelery from './pages/Jewelery';
 import MensClothing from './pages/MensClothing';
+import Cart from './pages/Cart';
+import Womens from './pages/Womens';
 
 const initialState = {
   loading: false,
@@ -51,8 +53,6 @@ const fetchData = async (dispatch) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { page, setPage } = useGlobalContext();
-
 
   useEffect(() => {
     fetchData(dispatch);
@@ -76,6 +76,8 @@ const App = () => {
         <Route path="/electronics" element={<Electronics page='electronics' data={state.data} />} />
         <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} />} />
         <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} />
+        <Route path="/women's clothing" element={<Womens page="women's" data={state.data} />} />
+        <Route path="/cart" element={<Cart page='cart' data={state.data} />} />
       </Routes>
       <Footer state={state} />
     </>

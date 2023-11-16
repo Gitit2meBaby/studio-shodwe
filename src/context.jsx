@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useReducer, useState } from 'react';
 
 const AppContext = createContext();
 
@@ -38,6 +38,8 @@ const AppProvider = ({ children }) => {
         }
         console.log('click', 'on page:', pageIndex, 'index=', index);
     };
+
+    // set up cart with useReducer
 
 
     return (
