@@ -253,13 +253,14 @@ aside {
     .cart-head {
         background-color: $yellow;
         border-bottom: 2px solid black;
+        @include spaced;
+        padding: .5rem 1rem;
 
         h3 {
             font-family: 'Codec Pro Extrabold';
             font-size: 1.4rem;
             margin: 0;
             text-align: center;
-            padding: 1rem;
         }
     }
 }
@@ -317,7 +318,7 @@ aside {
 }
 
 .cart-total {
-    border-top: 2px solid black;
+    border-top: 1px solid black;
     text-align: right;
     padding-right: 1rem;
 
@@ -328,6 +329,8 @@ aside {
 
 .cart-foot {
     @include spaced;
+    border-top: 1px solid black;
+    padding: .5rem 1rem;
 }
 
 .clear-btn {
@@ -340,6 +343,52 @@ aside {
     text-transform: uppercase;
     padding: 1rem 1rem;
     border: 2px solid white;
+}
+
+.checkout-btn {
+    border: 2px solid white;
+    font-family: "Codec Pro Extrabold";
+    background-color: #E8CA00;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+    cursor: pointer;
+}
+
+// SHIPPING FORM
+.shipping-info {
+    padding: 1rem;
+
+    h2 {
+        font-family: "Codec Pro Extrabold";
+
+    }
+}
+
+.form-group {
+    padding: .5rem 1rem;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+
+    input {
+        font-size: 1rem;
+        padding: 0.2rem;
+    }
+}
+
+// .shipping {
+//     @include spaced;
+
+//     h4 {
+//         margin: 0;
+//     }
+// }
+
+#freeShip {
+    font-size: 1.2rem;
+    color: red;
+    text-decoration: line-through;
 }
 
 // HERO SECTION

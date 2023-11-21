@@ -204,13 +204,16 @@ aside .sidebar .active-location {
 .cart-modal .cart-head {
   background-color: #E8CA00;
   border-bottom: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
 }
 .cart-modal .cart-head h3 {
   font-family: "Codec Pro Extrabold";
   font-size: 1.4rem;
   margin: 0;
   text-align: center;
-  padding: 1rem;
 }
 
 .item-details {
@@ -268,7 +271,7 @@ aside .sidebar .active-location {
 }
 
 .cart-total {
-  border-top: 2px solid black;
+  border-top: 1px solid black;
   text-align: right;
   padding-right: 1rem;
 }
@@ -280,6 +283,8 @@ aside .sidebar .active-location {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-top: 1px solid black;
+  padding: 0.5rem 1rem;
 }
 
 .clear-btn {
@@ -295,6 +300,40 @@ aside .sidebar .active-location {
   text-transform: uppercase;
   padding: 1rem 1rem;
   border: 2px solid white;
+}
+
+.checkout-btn {
+  border: 2px solid white;
+  font-family: "Codec Pro Extrabold";
+  background-color: #E8CA00;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  cursor: pointer;
+}
+
+.shipping-info {
+  padding: 1rem;
+}
+.shipping-info h2 {
+  font-family: "Codec Pro Extrabold";
+}
+
+.form-group {
+  padding: 0.5rem 1rem;
+  display: grid;
+  grid-template-columns: 40% 1fr;
+}
+.form-group input {
+  font-size: 1rem;
+  padding: 0.2rem;
+}
+
+#freeShip {
+  font-size: 1.2rem;
+  color: red;
+  text-decoration: line-through;
 }
 
 .hero {
