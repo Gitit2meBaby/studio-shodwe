@@ -21,6 +21,8 @@ const initialState = {
   data: null,
   categories: [],
   error: null,
+  cart: [],
+  total: 0,
 };
 
 const reducer = (state, action) => {
@@ -32,6 +34,103 @@ const reducer = (state, action) => {
       return { ...state, loading: false, data: action.payload, categories: uniqueCategories, error: null };
     case 'FETCH_ERROR':
       return { ...state, loading: false, data: null, categories: [], error: action.payload };
+    case 'ADD_TO_CART':
+      const { id } = action.payload;
+      const existingItemIndex = state.cart.findIndex(item => item.id === id);
+
+      if (existingItemIndex !== -1) {
+        const updatedCart = state.cart.map((item, index) =>
+          index === existingItemIndex ? { ...item, amount: item.amount + 1 } : item
+        );
+        const newTotal = updatedCart.reduce((acc, item) => acc + item.price * item.amount, 0);
+
+        return {
+          ...state,
+          cart: updatedCart,
+          total: newTotal,
+        };
+      } else {
+        const newItem = {
+          ...action.payload,
+          amount: 1,
+        };
+        const updatedCart = [...state.cart, newItem];
+        const newTotal = updatedCart.reduce((acc, item) => acc + item.price * item.amount, 0);
+
+        return {
+          ...state,
+          cart: updatedCart,
+          total: newTotal,
+        };
+      }
+
+    case 'INCREASE':
+      const idToIncrease = action.payload.id;
+      const increasedExistingItemIndex = state.cart.findIndex(item => item.id === idToIncrease);
+
+      if (increasedExistingItemIndex !== -1) {
+        const updatedCart = state.cart.map((item, index) =>
+          index === increasedExistingItemIndex ? { ...item, amount: item.amount + 1 } : item
+        );
+
+        const newTotal = updatedCart.reduce(
+          (acc, item) => acc + item.price * item.amount,
+          0
+        );
+
+        return {
+          ...state,
+          cart: updatedCart,
+          total: newTotal,
+        };
+      }
+
+      return state;
+
+    case 'DECREASE':
+      const idToDecrease = action.payload.id;
+      const decreasedExistingItemIndex = state.cart.findIndex(item => item.id === idToDecrease);
+
+      if (decreasedExistingItemIndex !== -1) {
+        const updatedCart = state.cart.map((item, index) =>
+          index === decreasedExistingItemIndex ? { ...item, amount: item.amount - 1 } : item
+        );
+
+        const decreasedItem = state.cart[decreasedExistingItemIndex];
+
+        if (decreasedItem.amount === 1) {
+          // If the amount becomes 1 after decreasing, remove the item
+          return {
+            ...state,
+            cart: updatedCart.filter(item => item.amount > 0),
+            total: state.total - decreasedItem.price,
+          };
+        } else {
+          const newTotal = state.total - decreasedItem.price;
+          return {
+            ...state,
+            cart: updatedCart,
+            total: newTotal >= 0 ? newTotal : 0, // Ensure the total is not negative
+          };
+        }
+      }
+
+      return state;
+
+
+    case 'REMOVE_ITEM':
+      return {
+        ...state,
+        cart: state.cart.filter(item => item.id !== action.payload.id),
+        total: state.total - (state.cart.find(item => item.id === action.payload.id).price * state.cart.find(item => item.id === action.payload.id).amount),
+      };
+
+    case 'CLEAR':
+      return {
+        ...state,
+        cart: [],
+        total: 0,
+      }
     default:
       return state;
   }
@@ -54,6 +153,30 @@ const fetchData = async (dispatch) => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const handleAddToCart = (product) => {
+    dispatch({ type: 'ADD_TO_CART', payload: product });
+  };
+
+  const handleIncrease = (e, id) => {
+    e.stopPropagation()
+    dispatch({ type: 'INCREASE', payload: { id } });
+  };
+
+  const handleDecrease = (e, id) => {
+    dispatch({ type: 'DECREASE', payload: { id } });
+    e.stopPropagation()
+  };
+
+  const handleRemoveItem = (e, id) => {
+    e.stopPropagation()
+    dispatch({ type: 'REMOVE_ITEM', payload: { id } });
+  };
+
+  const handleClearCart = () => {
+    dispatch({ type: 'CLEAR' });
+  };
+
+
   useEffect(() => {
     fetchData(dispatch);
   }, []);
@@ -62,21 +185,25 @@ const App = () => {
     <>
       <Header state={state} />
       <ScrollToTop />
-      <Sidebar />
+      <Sidebar state={state}
+        handleIncrease={handleIncrease}
+        handleDecrease={handleDecrease}
+        handleRemoveItem={handleRemoveItem}
+        handleClearCart={handleClearCart} />
       <Routes>
         <Route path="/" element={
           <>
             <Hero page='home' />
-            <ProductsDisplay data={state.data} page='home' />
+            <ProductsDisplay data={state.data} page='home' handleAddToCart={handleAddToCart} />
             <MensBanner page='home' />
             <ProductsCarousel data={state.data} categories={state.categories} page='home' />
-            <WomensClothing data={state.data} page='home' />
+            <WomensClothing data={state.data} page='home' handleAddToCart={handleAddToCart} />
           </>
         } />
-        <Route path="/electronics" element={<Electronics page='electronics' data={state.data} />} />
-        <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} />} />
-        <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} />
-        <Route path="/women's clothing" element={<Womens page="women's" data={state.data} />} />
+        <Route path="/electronics" element={<Electronics page='electronics' data={state.data} handleAddToCart={handleAddToCart} />} />
+        <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} handleAddToCart={handleAddToCart} />} />
+        <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} handleAddToCart={handleAddToCart} />
+        <Route path="/women's clothing" element={<Womens page="women's" data={state.data} handleAddToCart={handleAddToCart} />} />
         <Route path="/cart" element={<Cart page='cart' data={state.data} />} />
       </Routes>
       <Footer state={state} />

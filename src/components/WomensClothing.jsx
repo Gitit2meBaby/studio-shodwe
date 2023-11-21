@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from "../context"
 import gadgets from '../assets/gadgets800.webp'
 
-const WomensClothing = ({ data }) => {
+const WomensClothing = ({ data, handleAddToCart }) => {
     const {
         scrollTarget, setScrollTarget, setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible
@@ -49,12 +49,11 @@ const WomensClothing = ({ data }) => {
         };
     }, [finalSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
 
-    // filter out electronics from data array
+    // filter out womens clothing from data array
     useEffect(() => {
         if (data && data.length > 0) {
             const womens = data.filter((item) => item.category === "women's clothing");
             setWomens(womens);
-            console.log(womens);
         }
     }, [data]);
 
@@ -68,8 +67,8 @@ const WomensClothing = ({ data }) => {
             setFirstWord(firstWord);
             setTitleRemainder(titleRemainder);
 
+            // format description with a break
             if (womens[0].description) {
-                // format the first description better and split it into chunks
                 const productDescription = womens[0].description;
                 const sentences = productDescription.split('. ');
 
@@ -118,7 +117,7 @@ const WomensClothing = ({ data }) => {
                                     <p style={{ marginBottom: '2rem' }}>{secondaryContent}</p>
                                 }
                                 <div className="btn-container">
-                                    <button className='add-cart-btn'>Add To Cart</button>
+                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +140,7 @@ const WomensClothing = ({ data }) => {
                                             <h2>{product.title}</h2>
                                             <p>${product.price}</p>
                                             <div className="btn-container">
-                                                <button className='add-cart-btn small-btn'>Add</button>
+                                                <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>Add</button>
                                                 <button className="text-btn">Learn More...</button>
                                             </div>
                                         </div>

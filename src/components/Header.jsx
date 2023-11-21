@@ -6,6 +6,7 @@ const Header = ({ state }) => {
     const [openDropdowns, setOpenDropdowns] = useState({});
     const [brief, setBrief] = useState([]);
     const [remainder, setRemainder] = useState([]);
+    const [mobMenu, setMobMenu] = useState(false)
 
     const { data, categories } = state;
 
@@ -80,6 +81,27 @@ const Header = ({ state }) => {
             ) : (
                 <p>No data available.</p>
             )}
+            <div className="toggle"
+                onClick={() => setMobMenu(!mobMenu)}>
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="4em" width="4em" xmlns="http://www.w3.org/2000/svg"><path d="M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z"></path></svg>
+            </div>
+            <nav className={mobMenu ? "mobile-menu slide-in" : "mobile-menu"}>
+                <svg onClick={() => setMobMenu(!mobMenu)} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="4em" width="4em" xmlns="http://www.w3.org/2000/svg"><path d="M354 671h58.9c4.7 0 9.2-2.1 12.3-5.7L512 561.8l86.8 103.5c3 3.6 7.5 5.7 12.3 5.7H670c6.8 0 10.5-7.9 6.1-13.1L553.8 512l122.4-145.9c4.4-5.2.7-13.1-6.1-13.1h-58.9c-4.7 0-9.2 2.1-12.3 5.7L512 462.2l-86.8-103.5c-3-3.6-7.5-5.7-12.3-5.7H354c-6.8 0-10.5 7.9-6.1 13.1L470.2 512 347.9 657.9A7.95 7.95 0 0 0 354 671z"></path><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z"></path></svg>
+                {data && data.length > 0 ? (
+                    categories.map((category) => (
+                        <div className="mob-nav-item" key={category}>
+                            <NavLink to={category}>
+                                <button onClick={() => setMobMenu(!mobMenu)}>
+                                    {category}
+                                </button>
+                            </NavLink>
+                        </div>
+                    ))
+                ) : null}
+                <Link onClick={() => setMobMenu(!mobMenu)} to={'/'}> <img src={logo} alt="studio shodwe logo" /></Link>
+
+            </nav>
+
         </header>
     );
 

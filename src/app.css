@@ -64,6 +64,48 @@ header button:hover {
   background-color: #E8CA00;
 }
 
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60vw;
+  height: 100dvh;
+  background-color: white;
+  z-index: 10;
+  box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+.mobile-menu svg {
+  align-self: flex-end;
+  margin-bottom: 3rem;
+}
+.mobile-menu img {
+  align-self: center;
+  margin-top: auto;
+  padding-bottom: 6rem;
+}
+.mobile-menu .mob-nav-item {
+  padding-bottom: 3rem;
+}
+
+@media screen and (max-width: 950px) {
+  .nav-item {
+    display: none;
+  }
+  header {
+    padding: 1rem 2rem;
+  }
+}
+@media screen and (min-width: 950px) {
+  .toggle {
+    display: none;
+  }
+}
 aside {
   position: fixed;
   right: 0;
@@ -93,8 +135,14 @@ aside .cart-btn-container .cart-amount {
   top: -0.2rem;
   right: -0.2rem;
   background-color: rgb(59, 59, 59);
-  padding: 0.25rem 0.3rem;
   border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1px;
 }
 aside .cart-btn-container .cart-amount p {
   color: white;
@@ -135,13 +183,23 @@ aside .sidebar .active-location {
   transition: all 1s ease-in-out;
 }
 
+@media screen and (max-width: 950px) {
+  aside {
+    display: none;
+  }
+  .products-display {
+    padding: 1rem;
+    width: 100%;
+  }
+}
 .cart-modal {
   position: absolute;
   top: 2.3rem;
   right: 4.8rem;
-  width: 360px;
+  width: 460px;
   background-color: #fff;
-  box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, 0.5);
+  z-index: 15;
 }
 .cart-modal .cart-head {
   background-color: #E8CA00;
@@ -155,8 +213,67 @@ aside .sidebar .active-location {
   padding: 1rem;
 }
 
-.cart-items {
+.item-details {
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.item-details h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.item-details p {
+  margin: 0;
+  padding-top: 0.5rem;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 60dvh;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.cart-item .cart-content {
+  display: flex;
+  align-items: center;
+}
+.cart-item img {
+  max-height: 80px;
+  margin-right: 1rem;
+}
+
+.amounts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-self: flex-end;
+}
+.amounts-container p {
+  font-family: "Codec Pro Extrabold";
+  margin: 0.5rem 0;
+  background-color: #E8CA00;
+  padding: 0.5rem 0.7rem;
+  border-radius: 50%;
+}
+
+.cart-total {
+  border-top: 2px solid black;
+  text-align: right;
+  padding-right: 1rem;
+}
+.cart-total span {
+  font-size: 1rem;
 }
 
 .cart-foot {
@@ -266,6 +383,42 @@ aside .sidebar .active-location {
   background-color: #E8CA00;
 }
 
+@media screen and (max-width: 1100px) {
+  .hero {
+    display: flex;
+    width: 100%;
+  }
+  .hero button {
+    padding: 1rem;
+  }
+  .feature-img h1 {
+    padding-top: 4rem;
+  }
+  .secondary-img,
+  .graphics-container {
+    display: none;
+  }
+}
+@media screen and (max-width: 700px) {
+  .hero h1 {
+    font-size: 6rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .hero h1 {
+    font-size: clamp(2rem, 5rem, 15vw);
+    letter-spacing: -0.2rem;
+  }
+  .hero p {
+    font-size: clamp(1rem, 2rem, 8vw);
+  }
+  .feature-img {
+    background: url("./assets/feature500.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+}
 .products-display {
   padding: 2rem 100px 2rem 2rem;
 }
@@ -749,6 +902,7 @@ aside .sidebar .active-location {
   flex-direction: column;
   justify-content: center;
   grid-row: span 2;
+  z-index: -1;
 }
 .mens-feature h2,
 .mens-feature p,
@@ -836,6 +990,7 @@ aside .sidebar .active-location {
 }
 .jewelery-grid .jewelery-feature {
   max-height: 600px;
+  border-right: 10px solid white;
 }
 .jewelery-grid div:last-of-type {
   grid-column: span 2;
@@ -846,7 +1001,6 @@ aside .sidebar .active-location {
 
 .jewelery-title {
   grid-column: span 3;
-  border-left: 10px solid white;
 }
 
 .flex-arrows {
@@ -1072,4 +1226,8 @@ footer {
 .visible {
   opacity: 1;
   transition: all 1s ease-in-out;
+}
+
+.invisible {
+  display: none;
 }/*# sourceMappingURL=app.css.map */

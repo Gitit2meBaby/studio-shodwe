@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from "../context"
 
-const ProductsDisplay = ({ data }) => {
+const ProductsDisplay = ({ data, handleAddToCart }) => {
     const {
         scrollTarget, setScrollTarget, setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -82,7 +82,7 @@ const ProductsDisplay = ({ data }) => {
                                     <h4>${product.price}
                                         <span>{`   $${(product.price * 1.1).toFixed(2)}`}</span>
                                     </h4>
-                                    <button className='add-cart-btn'>Add to Cart</button>
+                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add to Cart</button>
                                 </div>
                             </div>
                         )}
@@ -106,7 +106,7 @@ const ProductsDisplay = ({ data }) => {
                                             <h2>{product.title}</h2>
                                             <p>${product.price}</p>
                                             <div className="btn-container">
-                                                <button className='add-cart-btn small-btn'>Add</button>
+                                                <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>Add</button>
                                                 <button className="text-btn">Learn More...</button>
                                             </div>
                                         </div>

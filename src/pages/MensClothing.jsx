@@ -5,7 +5,7 @@ import mensClothing800 from '../assets/mensClothing800.webp'
 import manOnWall from '../assets/man-on-wall150.webp'
 import manequins from '../assets/manequins300.webp'
 
-const MensClothing = ({ data }) => {
+const MensClothing = ({ data, handleAddToCart }) => {
     const {
         scrollTarget, setScrollTarget, setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -254,7 +254,7 @@ const MensClothing = ({ data }) => {
                                 <p className='set-down'
                                     ref={textRefs.current[index]}>{product.description}</p>
                                 <div className="btn-container">
-                                    <button className='add-cart-btn'>Add To Cart</button>
+                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@ import { useGlobalContext } from "../context"
 import jewelery800 from '../assets/jewelery800.webp'
 import jewelery400 from '../assets/jewelery400.webp'
 
-const Jewelery = ({ data }) => {
+const Jewelery = ({ data, handleAddToCart }) => {
     const {
         scrollTarget, setScrollTarget, setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -261,7 +261,7 @@ const Jewelery = ({ data }) => {
                                 <p className='set-down'
                                     ref={textRefs.current[index]}>{product.description}</p>
                                 <div className="btn-container">
-                                    <button className='add-cart-btn'>Add To Cart</button>
+                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
                                 </div>
                             </div>
                         </div>
