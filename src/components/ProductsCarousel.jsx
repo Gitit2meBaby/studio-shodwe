@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from "../context"
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom'
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -16,6 +17,7 @@ const ProductsCarousel = ({ data }) => {
 
     const carouselSection = useRef()
 
+    //interaction observers relating to the sidebar display
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -47,6 +49,8 @@ const ProductsCarousel = ({ data }) => {
         };
     }, [carouselSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
 
+
+    // slider functionality
     const settings = {
         dots: true,
         infinite: true,
@@ -62,11 +66,19 @@ const ProductsCarousel = ({ data }) => {
         initialSlide: 2,
         responsive: [
             {
-                breakpoint: 700,
+                breakpoint: 1200,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2,
+                    slidesToScroll: 1,
+                    initialSlide: 1,
+                },
+            },
+            {
+                breakpoint: 700,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 1,
                 },
             },
             {
@@ -108,10 +120,10 @@ const ProductsCarousel = ({ data }) => {
                         ))}
                 </Slider>
             </section>
-            <div className='jewellry-link'>
+            <Link to={'/jewelery'}><div className='jewellry-link'>
                 <div><h2>See collection</h2></div>
                 <div className='arrow-div'><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 0 0 0-48.4z"></path></svg></div>
-            </div>
+            </div></Link>
         </>
     );
 };

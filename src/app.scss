@@ -55,6 +55,11 @@ $less-black: rgb(59, 59, 59);
 
 body {
     margin: 0;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
 }
 
 // HEADER 
@@ -232,12 +237,9 @@ aside {
     aside {
         display: none;
     }
-
-    .products-display {
-        padding: 1rem;
-        width: 100%;
-    }
 }
+
+@media screen and (max-width: 700px) {}
 
 
 // CART POPUP
@@ -315,6 +317,10 @@ aside {
         padding: 0.5rem .7rem;
         border-radius: 50%
     }
+
+    svg {
+        cursor: pointer;
+    }
 }
 
 .cart-total {
@@ -359,6 +365,8 @@ aside {
 // SHIPPING FORM
 .shipping-info {
     padding: 1rem;
+    max-height: 70dvh;
+    overflow-y: scroll;
 
     h2 {
         font-family: "Codec Pro Extrabold";
@@ -377,18 +385,35 @@ aside {
     }
 }
 
-// .shipping {
-//     @include spaced;
-
-//     h4 {
-//         margin: 0;
-//     }
-// }
-
 #freeShip {
     font-size: 1.2rem;
     color: red;
     text-decoration: line-through;
+}
+
+// PAYMENT
+.payment {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0 1rem;
+
+    h2 {
+        align-self: flex-start;
+    }
+
+    h3 {
+        margin: 0;
+        padding-bottom: 1rem;
+    }
+}
+
+.final-list-item {
+    display: grid;
+    grid-template-columns: 1fr 10% 10%;
+    gap: .5rem;
+    width: 100%;
 }
 
 // HERO SECTION
@@ -396,8 +421,8 @@ aside {
     display: grid;
     grid-template-columns: 60% 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    height: 80vh;
-    width: calc(100vw - 100px);
+    height: 75vh;
+    padding: 0 6rem 0rem 4rem;
 }
 
 .feature-img {
@@ -407,6 +432,7 @@ aside {
     background-repeat: no-repeat;
     background-size: cover;
     padding: 4rem;
+    border-right: 10px solid white;
 
     h1 {
         z-index: 5;
@@ -447,15 +473,22 @@ aside {
     background-size: cover;
     background-position: center;
     min-height: 350px;
+    border-top: 10px solid white;
+    border-right: 10px solid white;
+
 }
 
 .graphics-container {
     display: grid;
     grid-template-columns: 40% 1fr;
+    border-top: 10px solid white;
 
     .arrow-container {
         background-color: black;
         @include centered;
+        border-right: 10px solid white;
+        border-bottom: 10px solid white;
+
 
         svg {
             height: 90%;
@@ -465,7 +498,6 @@ aside {
 
     .arrow-container:hover {
         background-color: white;
-        cursor: pointer;
 
         svg {
             fill: black;
@@ -485,6 +517,7 @@ aside {
     .hero {
         display: flex;
         width: 100%;
+        padding: 0 1rem;
 
         button {
             padding: 1rem;
@@ -504,14 +537,16 @@ aside {
 }
 
 @media screen and (max-width: 700px) {
-    .hero h1 {
-        font-size: 6rem;
+    .hero {
+        padding: 0;
+
+        h1 {
+            font-size: 6rem;
+        }
     }
 }
 
 @media screen and (max-width: 500px) {
-
-
     .hero {
         h1 {
             font-size: clamp(2rem, 5rem, 15vw);
@@ -594,6 +629,26 @@ aside {
     p {
         font-size: 1.4rem;
         line-height: 1.6rem;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .products-display {
+        padding: 1rem;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .split-row {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .product-main-content {
+        padding: 1rem;
     }
 }
 
@@ -680,19 +735,6 @@ aside {
         height: 100%
     }
 
-    .banner-text {
-        @include centered;
-        background-color: $yellow;
-        height: 50%;
-
-        h2 {
-            text-align: center;
-            font-family: 'Codec Pro Extrabold';
-            font-size: 3rem;
-            margin: 0;
-        }
-    }
-
     img {
         max-width: 100%;
     }
@@ -701,6 +743,7 @@ aside {
         transform: translateX(0);
         transform: translateY(-40%);
         background-color: #fff;
+        cursor: auto;
 
         svg {
             fill: black;
@@ -723,7 +766,6 @@ aside {
 
 .mini-arrow-container:hover {
     background-color: white;
-    cursor: pointer;
 
     svg {
         fill: black;
@@ -749,7 +791,6 @@ aside {
         }
     }
 }
-
 
 .boys-img {
     margin-left: auto;
@@ -792,6 +833,68 @@ aside {
     margin-bottom: 0;
 }
 
+@media screen and (max-width: 1300px) {
+    .mens-banner {
+        grid-template-columns: 40% 1fr;
+    }
+
+    .banner-content {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .mens-banner {
+        width: 100%;
+    }
+
+    .jewellry-link,
+    #mensLink {
+        padding-right: .5rem;
+        width: 90vw;
+        margin-right: 0.5rem;
+
+        h2 {
+            font-size: clamp(.8rem, 2.5rem, 20vw);
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .mens-banner {
+        display: flex;
+
+        .mini-grid {
+            display: none;
+        }
+    }
+
+    .boys-img h2 {
+        margin: 2rem 0;
+    }
+}
+
+@media screen and (max-width: 580px) {
+
+    #mensLink {
+        width: 90vw;
+        margin-right: 0.5rem;
+
+        h2 {
+            font-size: clamp(.8rem, 1.5rem, 10vw);
+        }
+    }
+
+    .boys-img {
+        max-width: 100vw;
+        min-width: 100vw;
+
+        h2 {
+            font-size: clamp(1.5rem, 8rem, 50vw);
+        }
+    }
+}
+
 // PRODUCTS SLIDER CAROUSEL (REACT SLICK)
 .products-carousel {
     position: relative;
@@ -812,64 +915,88 @@ aside {
         opacity: .1;
         padding-right: 1.2rem;
     }
+
+    .slick-list {
+        padding: 16rem 4rem 12rem 4rem !important;
+    }
+
+    .slider-img {
+        padding: 0 4rem;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column;
+        position: relative;
+
+        img {
+            max-width: 80%;
+            max-height: 200px;
+            min-height: 200px;
+        }
+    }
+
+    .slick-active {
+        transform: scale(1);
+        background: transparent;
+        transition: all 1s ease-in-out;
+    }
+
+    .slick-current {
+        transform: scale(1.6);
+        transition: all 1s ease-in-out;
+        @include column;
+    }
+
+    .slider-hover-div {
+        position: absolute;
+        @include aligned;
+        flex-direction: column;
+        width: 100%;
+        height: 200%;
+        background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 30%, transparent 60%);
+        padding: 6rem 8rem 2rem 8rem;
+        transition: all 1s ease-in-out;
+
+        p {
+            color: lightgray;
+            font-size: 3.4rem;
+        }
+    }
+
+    .slick-dots li {
+        padding: 0 1.4rem;
+
+        button:before {
+            color: $yellow;
+            font-size: 1rem;
+            opacity: 1;
+            transition: all 1s ease-in-out
+        }
+    }
+
 }
 
-.slick-list {
-    padding: 16rem 4rem 12rem 4rem !important;
-}
+@media screen and (max-width: 1300px) {
+    .products-carousel {
+        padding: 5vw 0 2rem 0;
 
-.slider-img {
-    padding: 0 4rem;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-direction: column;
-    position: relative;
-
-    img {
-        max-width: 80%;
-        max-height: 200px;
-        min-height: 200px;
+        h2 {
+            font-size: 20vw;
+        }
     }
 }
 
-.slick-active {
-    transform: scale(1);
-    background: transparent;
-    transition: all 1s ease-in-out;
-}
-
-.slick-current {
-    transform: scale(1.6);
-    transition: all 1s ease-in-out;
-    @include column;
-}
-
-.slider-hover-div {
-    position: absolute;
-    @include aligned;
-    flex-direction: column;
-    width: 100%;
-    height: 200%;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 30%, transparent 60%);
-    padding: 6rem 8rem 2rem 8rem;
-    transition: all 1s ease-in-out;
-
-    p {
-        color: lightgray;
-        font-size: 3.4rem;
+@media screen and (max-width: 700px) {
+    .products-carousel h2 {
+        line-height: 15vw;
     }
 }
 
-.slick-dots li {
-    padding: 0 1.4rem;
-
-    button:before {
-        color: $yellow;
-        font-size: 1rem;
-        opacity: 1;
-        transition: all 1s ease-in-out
+@media screen and (max-width: 500px) {
+    .products-carousel h2 {
+        text-shadow: 0px 180px black;
     }
+
 }
 
 // JEWELLRY LINK
@@ -877,7 +1004,7 @@ aside {
     display: grid;
     grid-template-columns: 80% 1fr;
     height: 100px;
-    width: 40vw;
+    width: 600px;
     padding-right: 100px;
     margin-left: auto;
     margin-bottom: 2rem;
@@ -892,7 +1019,6 @@ aside {
         h2 {
             font-family: 'Codec Pro Extrabold';
             text-transform: uppercase;
-            font-size: 3rem;
             margin: 0;
             letter-spacing: .5rem;
             margin-top: 0.5rem;
@@ -925,6 +1051,30 @@ aside {
 
         svg {
             fill: black;
+        }
+    }
+}
+
+@media screen and (max-width: 950px) {
+
+    .jewellry-link {
+        padding-right: .5rem;
+        width: 90vw;
+        margin-right: 0.5rem;
+
+        h2 {
+            font-size: clamp(.8rem, 2.5rem, 20vw);
+        }
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .jewellry-link {
+        width: 90vw;
+        margin-right: 0.5rem;
+
+        h2 {
+            font-size: 1.5rem;
         }
     }
 }
@@ -983,12 +1133,46 @@ aside {
     }
 }
 
+@media screen and (max-width: 1200px) {
+    .primary {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .primary {
+        padding: 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .primary {
+        img {
+            max-height: 40vh;
+        }
+    }
+
+    .primary-content {
+        padding: 1rem;
+
+        h2 {
+            font-size: 2.6rem;
+        }
+
+        .text-btn {
+            margin-bottom: 2rem;
+            padding: 0;
+        }
+    }
+}
+
 // PRIMARY PAGE ALTERATIONS
 .page-layout {
     padding: 0 8rem 0 4rem;
 
     img {
-        max-width: 400px;
+        max-width: 500px;
     }
 
     .btn-container {
@@ -1328,19 +1512,25 @@ footer {
 .socials {
     background-color: white;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     padding: 1rem 1rem .5rem 3rem;
     border: 4px solid black;
 
+    .socials-title {
+        grid-column: span 2;
 
-    svg {
-        width: 70px;
-        height: 70px;
-        align-self: center;
+        h4 {
+            font-size: 1.2rem;
+            line-height: 1.3rem;
+            padding-top: 0.5rem;
+            margin: 0;
+        }
     }
 
-    svg:nth-of-type(3) {
-        grid-row: span 2
+    svg {
+        width: 50px;
+        height: 50px;
+        margin: auto;
     }
 
     svg:hover {
@@ -1402,4 +1592,12 @@ footer {
 
 .invisible {
     display: none;
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.error input::placeholder {
+    color: red;
 }

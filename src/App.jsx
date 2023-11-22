@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from 'react';
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useGlobalContext } from './context';
+import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop'
 import ProductsDisplay from './components/ProductsDisplay';
@@ -152,6 +153,7 @@ const fetchData = async (dispatch) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const location = useLocation()
 
   const handleAddToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
@@ -183,29 +185,31 @@ const App = () => {
 
   return (
     <>
-      <Header state={state} />
-      <ScrollToTop />
-      <Sidebar state={state}
-        handleIncrease={handleIncrease}
-        handleDecrease={handleDecrease}
-        handleRemoveItem={handleRemoveItem}
-        handleClearCart={handleClearCart} />
-      <Routes>
-        <Route path="/" element={
-          <>
-            <Hero page='home' />
-            <ProductsDisplay data={state.data} page='home' handleAddToCart={handleAddToCart} />
-            <MensBanner page='home' />
-            <ProductsCarousel data={state.data} categories={state.categories} page='home' />
-            <WomensClothing data={state.data} page='home' handleAddToCart={handleAddToCart} />
-          </>
-        } />
-        <Route path="/electronics" element={<Electronics page='electronics' data={state.data} handleAddToCart={handleAddToCart} />} />
-        <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} handleAddToCart={handleAddToCart} />} />
-        <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} handleAddToCart={handleAddToCart} />
-        <Route path="/women's clothing" element={<Womens page="women's" data={state.data} handleAddToCart={handleAddToCart} />} />
-        <Route path="/cart" element={<Cart page='cart' data={state.data} />} />
-      </Routes>
+      <AnimatePresence>
+        <Header state={state} />
+        <ScrollToTop />
+        <Sidebar state={state}
+          handleIncrease={handleIncrease}
+          handleDecrease={handleDecrease}
+          handleRemoveItem={handleRemoveItem}
+          handleClearCart={handleClearCart} />
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={
+            <>
+              <Hero page='home' />
+              <ProductsDisplay data={state.data} page='home' handleAddToCart={handleAddToCart} />
+              <MensBanner page='home' />
+              <ProductsCarousel data={state.data} categories={state.categories} page='home' />
+              <WomensClothing data={state.data} page='home' handleAddToCart={handleAddToCart} />
+            </>
+          } />
+          <Route path="/electronics" element={<Electronics page='electronics' data={state.data} handleAddToCart={handleAddToCart} />} />
+          <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} handleAddToCart={handleAddToCart} />} />
+          <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} handleAddToCart={handleAddToCart} />
+          <Route path="/women's clothing" element={<Womens page="women's" data={state.data} handleAddToCart={handleAddToCart} />} />
+          <Route path="/cart" element={<Cart page='cart' data={state.data} />} />
+        </Routes>
+      </AnimatePresence>
       <Footer state={state} />
     </>
   );
