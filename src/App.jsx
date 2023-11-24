@@ -211,7 +211,7 @@ const App = () => {
           } />
           <Route path="/electronics" element={<Electronics page='electronics' data={state.data} handleAddToCart={handleAddToCart} />} />
           <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} handleAddToCart={handleAddToCart} />} />
-          <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} handleAddToCart={handleAddToCart} />
+          <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} handleAddToCart={handleAddToCart} />} />
           <Route path="/women's clothing" element={<Womens page="women's" data={state.data} handleAddToCart={handleAddToCart} />} />
           <Route path="/cart" element={<Cart page='cart' data={state.data} />} />
           < Route path="/payment" element={<Payment />} />

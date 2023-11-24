@@ -11,7 +11,7 @@ import person from '../assets/person-with-phone400.webp';
 
 const Electronics = ({ data, handleAddToCart }) => {
     const {
-        setPage,
+        setPage, handleScrollTo,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
         setSidebarIconAmount, setActivePage
     } = useGlobalContext();
@@ -214,7 +214,9 @@ const Electronics = ({ data, handleAddToCart }) => {
                     <motion.p {...textFadeInDelay2}>Learn</motion.p>
                     <motion.p {...textFadeInDelay3}>Play</motion.p>
                     <motion.p {...textFadeInDelay4}>Discover</motion.p>
-                    <motion.button {...textFadeInDelay5} className='text-btn'>Show Tech</motion.button>
+                    <motion.button {...textFadeInDelay5}
+                        onClick={() => handleScrollTo('electronics', 1)}
+                        className='text-btn'>Show Tech</motion.button>
                 </div>
 
                 <div className="inner-grid">

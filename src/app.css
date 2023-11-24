@@ -69,6 +69,15 @@ header button:hover {
   background-color: #E8CA00;
 }
 
+@media screen and (max-width: 500px) {
+  header img {
+    height: 50px;
+    width: 125px;
+  }
+  header svg {
+    height: 50px;
+  }
+}
 .mobile-menu {
   position: fixed;
   top: 0;
@@ -479,6 +488,16 @@ aside .sidebar .active-location {
   text-decoration: line-through;
 }
 
+@media screen and (max-width: 500px) {
+  .shipping-info {
+    padding-right: 2rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
 .payment {
   padding-top: 1rem;
   display: flex;
@@ -577,6 +596,13 @@ aside .sidebar .active-location {
   margin-right: 0.5rem;
 }
 
+@media screen and (max-width: 500px) {
+  .payment-form {
+    left: 0;
+    margin-left: 2vw;
+    width: clamp(min(95%, 100% - 4vw), 0px, 100%);
+  }
+}
 .hero {
   display: grid;
   grid-template-columns: 60% 1fr;
@@ -694,6 +720,9 @@ aside .sidebar .active-location {
   }
 }
 @media screen and (max-width: 500px) {
+  .hero {
+    height: 70vh;
+  }
   .hero h1 {
     font-size: clamp(2rem, 5rem, 15vw);
     letter-spacing: -0.2rem;
@@ -857,6 +886,10 @@ aside .sidebar .active-location {
   text-decoration: underline;
 }
 
+.tap-info {
+  display: none;
+}
+
 @media screen and (max-width: 700px) {
   .grid-row-thirds {
     padding: 4rem 0 6rem 2rem;
@@ -871,8 +904,16 @@ aside .sidebar .active-location {
   .hover-div h2 {
     margin: 0;
   }
-  .hover-div .btn-container {
+  .hover-div .text-btn {
     display: none;
+  }
+  .hover-div:first-of-type {
+    padding: 8rem 12rem;
+  }
+  .tap-info {
+    display: block;
+    margin-top: -2rem;
+    text-align: center;
   }
 }
 .mens-banner {
@@ -1126,8 +1167,14 @@ aside .sidebar .active-location {
   }
 }
 @media screen and (max-width: 500px) {
+  .products-carousel {
+    padding: 0rem 0 2rem 0;
+  }
   .products-carousel h2 {
     text-shadow: 0px 180px black;
+  }
+  .products-carousel .slider-img {
+    padding: 0;
   }
 }
 .jewellry-link {
@@ -1846,7 +1893,8 @@ footer {
     margin-top: 0rem;
   }
   .sale-bar h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    padding: 1rem 0.5rem;
   }
   .footer-main {
     display: flex;

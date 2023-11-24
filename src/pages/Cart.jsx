@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
+import { useGlobalContext } from '../context';
 const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDecrease, handleIncrease, handleCartClose }) => {
 
     const [checkout, setCheckout] = useState(false)
     const [shippingFree, setShippingFree] = useState(false)
     const [payment, setPayment] = useState(false)
     const [formErrors, setFormErrors] = useState({});
+    const { setIsMobileMenuOpen } = useGlobalContext
     const [formData, setFormData] = useState({
         fullName: '',
         address: '',
@@ -96,6 +98,7 @@ const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDec
         setPayment(false)
         setCartPopup(false)
         setShippingFree(false)
+        setIsMobileMenuOpen(false)
         handleClearCart()
         setFormData({
             fullName: '',

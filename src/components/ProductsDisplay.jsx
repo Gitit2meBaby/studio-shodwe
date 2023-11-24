@@ -125,6 +125,7 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
                     ))
                 )}
             </div>
+            <p className='tap-info'>*Tap for more info...</p>
         </section>
     );
 };

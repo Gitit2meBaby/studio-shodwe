@@ -107,6 +107,20 @@ header {
     }
 }
 
+@media screen and (max-width: 500px) {
+    header {
+
+        img {
+            height: 50px;
+            width: 125px;
+        }
+
+        svg {
+            height: 50px;
+        }
+    }
+}
+
 // MOBILE NAV
 .mobile-menu {
     position: fixed;
@@ -542,6 +556,18 @@ aside {
     text-decoration: line-through;
 }
 
+@media screen and (max-width: 500px) {
+    .shipping-info {
+        padding-right: 2rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+}
+
 // PAYMENT
 .payment {
     padding-top: 1rem;
@@ -648,7 +674,14 @@ aside {
             margin-right: 0.5rem;
         }
     }
+}
 
+@media screen and (max-width: 500px) {
+    .payment-form {
+        left: 0;
+        margin-left: 2vw;
+        width: clamp(min(95%, calc(100% - 4vw)), 0px, 100%);
+    }
 }
 
 // HERO SECTION
@@ -783,6 +816,8 @@ aside {
 
 @media screen and (max-width: 500px) {
     .hero {
+        height: 70vh;
+
         h1 {
             font-size: clamp(2rem, 5rem, 15vw);
             letter-spacing: -.2rem;
@@ -959,6 +994,10 @@ aside {
     }
 }
 
+.tap-info {
+    display: none;
+}
+
 @media screen and (max-width: 700px) {
     .grid-row-thirds {
         padding: 4rem 0 6rem 2rem;
@@ -976,9 +1015,19 @@ aside {
             margin: 0;
         }
 
-        .btn-container {
+        .text-btn {
             display: none;
         }
+    }
+
+    .hover-div:first-of-type {
+        padding: 8rem 12rem;
+    }
+
+    .tap-info {
+        display: block;
+        margin-top: -2rem;
+        text-align: center;
     }
 }
 
@@ -1271,10 +1320,17 @@ aside {
 }
 
 @media screen and (max-width: 500px) {
-    .products-carousel h2 {
-        text-shadow: 0px 180px black;
-    }
+    .products-carousel {
+        padding: 0rem 0 2rem 0;
 
+        h2 {
+            text-shadow: 0px 180px black;
+        }
+
+        .slider-img {
+            padding: 0;
+        }
+    }
 }
 
 // JEWELLRY LINK
@@ -2097,7 +2153,8 @@ footer {
     }
 
     .sale-bar h2 {
-        font-size: clamp(1rem, 1.8rem, 2.5rem);
+        font-size: clamp(1rem, 1.6rem, 2.5rem);
+        padding: 1rem 0.5rem;
     }
 
     .footer-main {
