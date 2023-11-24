@@ -149,7 +149,7 @@ const WomensClothing = ({ data, handleAddToCart }) => {
                                             <p>${product.price}</p>
                                             <div className="btn-container">
                                                 <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>Add</button>
-                                                <button className="text-btn">Learn More...</button>
+                                                <Link to={"/women's clothing"}><button className="text-btn">Learn More...</button></Link>
                                             </div>
                                         </div>
                                     )}

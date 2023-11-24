@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom'
 import { useGlobalContext } from "../context"
 import { statePropTypes } from '../propTypes';
 import PropTypes from 'prop-types';
@@ -6,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const ProductsDisplay = ({ data, handleAddToCart }) => {
     const {
-        setPage,
+        setPage, handleScrollTo,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
     } = useGlobalContext();
 
@@ -97,7 +98,7 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
 
             <div className="grid-row-thirds">
                 {data && data.length > 0 && (
-                    data.map((product) => (
+                    data.map((product, index) => (
                         <React.Fragment key={product.id}>
                             {product.id >= 2 && product.id <= 4 && (
                                 <div
@@ -112,7 +113,9 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
                                             <p>${product.price}</p>
                                             <div className="btn-container">
                                                 <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>Add</button>
-                                                <button className="text-btn">Learn More...</button>
+                                                <Link to={"/men's clothing"}><button
+                                                    onClick={() => handleScrollTo('mens', { index })}
+                                                    className="text-btn">Learn More...</button></Link>
                                             </div>
                                         </div>
                                     )}

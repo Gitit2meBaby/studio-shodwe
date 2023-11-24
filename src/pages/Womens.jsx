@@ -76,7 +76,7 @@ const Womens = ({ data, handleAddToCart }) => {
         }
     }, [homeObserver]);
 
-    //interaction observers to handle scrollTo and sidebar
+    //interaction observers to handle sidebar value changes
     const setupIntersectionObserver = useCallback(
         (product, index, firstWord, secondWord) => {
 
