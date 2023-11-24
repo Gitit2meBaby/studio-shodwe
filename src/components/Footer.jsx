@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { statePropTypes } from '../propTypes';
+import { Link } from 'react-router-dom'
 import logoWhite from '../assets/logo-white.webp'
 
 const Footer = ({ state }) => {
     const { data, categories } = state;
+
+    const uniqueCategories = [...new Set(categories)];
 
     return (
         <footer>
@@ -11,7 +14,7 @@ const Footer = ({ state }) => {
             </div>
             <div className="footer-main">
                 <div className="footer-logo">
-                    <img src={logoWhite} alt="Shodwe Studio logo" />
+                    <Link to={'/'}><img src={logoWhite} alt="Shodwe Studio logo" /></Link>
                 </div>
                 <div className="credentials">
                     <h4>Location</h4>
@@ -24,8 +27,8 @@ const Footer = ({ state }) => {
                 <nav className='footer-nav'>
                     <ul>
                         {data && data.length > 0 && (
-                            categories.map((category) => (
-                                <li key={category}>- {category}</li>
+                            uniqueCategories.map((category) => (
+                                <Link key={category} to={`/${category}`}><li>- {category}</li></Link>
                             ))
                         )}
                     </ul>
@@ -44,5 +47,9 @@ const Footer = ({ state }) => {
         </footer>
     )
 }
+
+Footer.propTypes = {
+    state: statePropTypes
+};
 
 export default Footer

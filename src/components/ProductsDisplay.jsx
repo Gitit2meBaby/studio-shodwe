@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from "../context"
+import { statePropTypes } from '../propTypes';
+import PropTypes from 'prop-types';
+
 
 const ProductsDisplay = ({ data, handleAddToCart }) => {
     const {
-        scrollTarget, setScrollTarget, setPage,
+        setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
     } = useGlobalContext();
 
@@ -32,17 +35,19 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
             }
         );
 
+        const firstSectionCurrent = firstSection.current
+
         if (firstSection.current) {
             observer.observe(firstSection.current);
         }
 
         return () => {
-            if (firstSection.current) {
+            if (firstSectionCurrent) {
                 setIsVisible(false)
-                observer.unobserve(firstSection.current);
+                observer.unobserve(firstSectionCurrent);
             }
         };
-    }, [firstSection.current, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
+    }, [setIsVisible, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
 
     // format the Title nicer by separating the first word (needed useEffect because otherwise error if data is unavailable)
     useEffect(() => {
@@ -66,7 +71,7 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
     };
 
     return (
-        <section ref={firstSection} className="products-display">
+        <section id='home1' ref={firstSection} className="products-display">
             {data && data.length > 0 && (
                 data.map((product) => (
                     <React.Fragment key={product.id}>
@@ -119,6 +124,12 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
             </div>
         </section>
     );
+};
+
+ProductsDisplay.propTypes = {
+    state: statePropTypes,
+    handleAddToCart: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default ProductsDisplay;

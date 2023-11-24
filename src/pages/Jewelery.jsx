@@ -1,16 +1,18 @@
 import { useState, useEffect, useRef, createRef, useCallback, useMemo } from 'react';
 import { useGlobalContext } from "../context"
+import { statePropTypes } from '../propTypes';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion'
-import { slideInLeft, slideInUp, slideInDown, slideInRight, textFadeInDelay1, textFadeInDelay2, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5, slideInDown1, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
+import { slideInLeft, slideInUp, slideInRight, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5, slideInDown1, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
 
 import jewelery800 from '../assets/jewelery800.webp'
 import jewelery400 from '../assets/jewelery400.webp'
 
 const Jewelery = ({ data, handleAddToCart }) => {
     const {
-        scrollTarget, setScrollTarget, setPage,
+        setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
-        setSidebarIconAmount, activePage, pageTextRefs, setPageTextRefs, setActivePage
+        setSidebarIconAmount, activePage, setPageTextRefs, setActivePage
     } = useGlobalContext();
 
     const [jewelery, setJewelery] = useState([]);
@@ -60,7 +62,7 @@ const Jewelery = ({ data, handleAddToCart }) => {
                 rootMargin: '-100px 0px 100px 0px',
             }
         )
-    ), [jewelery.length]);
+    ), [jewelery.length, setActivePage, setIsVisible, setPage, setSidebarIcon, setSidebarIconAmount, setSidebarNumber, setSidebarText]);
 
     useEffect(() => {
         const homeRef = jeweleryHome.current;
@@ -205,7 +207,7 @@ const Jewelery = ({ data, handleAddToCart }) => {
 
     return (
         <section className="jewelery">
-            <div className="jewelery-grid">
+            <div id='jewelery0' className="jewelery-grid">
 
                 <motion.div className="jewelery-feature"
                     {...slideInLeft}>
@@ -242,7 +244,7 @@ const Jewelery = ({ data, handleAddToCart }) => {
                     const titleRemainder = words.join(' ');
 
                     return (
-                        <div
+                        <div id={`jewelery${index + 1}`}
                             className={`primary page-layout ${index % 2 === 1 ? 'second-row' : ''}`}
                             key={product.id}
 
@@ -273,5 +275,12 @@ const Jewelery = ({ data, handleAddToCart }) => {
         </section>
     );
 }
+
+Jewelery.propTypes = {
+    state: statePropTypes,
+    handleAddToCart: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+};
+
 
 export default Jewelery;

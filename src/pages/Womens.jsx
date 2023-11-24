@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useRef, createRef, useCallback, useMemo } from 'react';
 import { useGlobalContext } from "../context"
+import { statePropTypes } from '../propTypes';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion'
-import { slideInLeft, slideInUp, slideInDown, slideInRight, textFadeInDelay1, textFadeInDelay2, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5, slideInDown1, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
+import { slideInLeft, slideInUp, slideInDown, slideInDown1, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
 
 import womens400 from '../assets/womens400.webp'
 import womensPortrait from '../assets/womensportrait.webp'
 
 const Womens = ({ data, handleAddToCart }) => {
     const {
-        scrollTarget, setScrollTarget, setPage,
+        setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
-        setSidebarIconAmount,
+        setSidebarIconAmount, setActivePage
     } = useGlobalContext();
 
     const [womensClothing, setWomensClothing] = useState([]);
-    const [firstWord, setFirstWord] = useState('');
-    const [titleRemainder, setTitleRemainder] = useState('');
+    const [, setFirstWord] = useState('');
+    const [, setTitleRemainder] = useState('');
     const [showContent, setShowContent] = useState(false)
     const [initalContent, setInitialContent] = useState('')
     const [secondaryContent, setSecondaryContent] = useState('')
@@ -31,6 +33,7 @@ const Womens = ({ data, handleAddToCart }) => {
         if (data && data.length > 0) {
             const womensClothingData = data.filter((item) => item.category === "women's clothing");
             setWomensClothing(womensClothingData);
+            setActivePage('womens')
 
             // Create refs for each image and text element
             imageRefs.current = womensClothingData.map(() => createRef());
@@ -38,7 +41,7 @@ const Womens = ({ data, handleAddToCart }) => {
             subHeadingRefs.current = womensClothingData.map(() => createRef());
             textRefs.current = womensClothingData.map(() => createRef());
         }
-    }, [data]);
+    }, [data, setActivePage]);
 
     // Seperate the home observer, useMemo needed so i can use homeObserver in dependecy array to set values on load
     const homeObserver = useMemo(() => (
@@ -60,7 +63,7 @@ const Womens = ({ data, handleAddToCart }) => {
                 rootMargin: '-100px 0px 100px 0px',
             }
         )
-    ), [womensClothing.length]);
+    ), [womensClothing.length, setIsVisible, setPage, setSidebarIcon, setSidebarIconAmount, setSidebarNumber, setSidebarText]);
 
     useEffect(() => {
         const homeRef = womensHome.current;
@@ -79,14 +82,14 @@ const Womens = ({ data, handleAddToCart }) => {
 
             return new IntersectionObserver(
                 (entries) => {
-
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
-                            setSidebarText(`${firstWord}`);
+                            setSidebarText(`${firstWord}${secondWord}`);
                             setSidebarIcon((index + 1) + 1);
                             setSidebarNumber(`0${(index + 1) + 1}`);
                             setIsVisible(true);
                             setSidebarIconAmount(womensClothing.length + 1);
+                            console.log('observing:', index);
                         }
                     });
                 },
@@ -231,13 +234,13 @@ const Womens = ({ data, handleAddToCart }) => {
     return (
         <section className="womens">
 
-            <div className="womens-grid">
+            <div id='womens0' className="womens-grid">
                 <motion.div {...slideInLeft} className="womens-secondary">
                     <img src={womensPortrait} alt="fashionable lady" />
                 </motion.div>
 
                 <motion.div {...slideInDown} className="title womens-title">
-                    <h1>Women's Clothing</h1>
+                    <h1>Women&apos;s Clothing</h1>
                 </motion.div>
                 <motion.div {...slideInUp} className="womens-small">
                     <img src={womens400} alt="woman posing" />
@@ -257,12 +260,13 @@ const Womens = ({ data, handleAddToCart }) => {
                     const firstWord = words.shift();
                     const secondWord = words.shift();
                     const titleRemainder = words.join(' ');
+                    const isFirstChild = index === 0
 
                     return (
                         <div
                             className={`primary page-layout ${index % 2 === 1 ? 'second-row' : ''}`}
                             key={product.id}
-
+                            id={`womens${index + 1}`}
                         >
                             <img
                                 ref={imageRefs.current[index]}
@@ -285,12 +289,16 @@ const Womens = ({ data, handleAddToCart }) => {
                                         <br />
                                     </React.Fragment>
                                 ))}</p>
-                                <button className="text-btn"
-                                    onClick={() => setShowContent(!showContent)}
-                                >Learn More...</button>
-                                {showContent &&
+
+                                {isFirstChild && (
+                                    <button className="text-btn"
+                                        onClick={() => setShowContent(!showContent)}
+                                    >Learn More...</button>
+                                )}
+                                {isFirstChild && showContent &&
                                     <p style={{ marginBottom: '2rem' }}>{secondaryContent}</p>
                                 }
+
                                 <div className="btn-container">
                                     <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
                                 </div>
@@ -301,6 +309,12 @@ const Womens = ({ data, handleAddToCart }) => {
         </section>
     );
 }
+
+Womens.propTypes = {
+    state: statePropTypes,
+    handleAddToCart: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default Womens;
 

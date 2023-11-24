@@ -1,16 +1,19 @@
 import { useState, useEffect, useRef, createRef, useCallback, useMemo } from 'react';
 import { useGlobalContext } from "../context"
 import { motion } from 'framer-motion'
-import { slideInLeft, slideInUp, slideInDown, slideInRight, textFadeInDelay1, textFadeInDelay2, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5, slideInDown1, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
+import { statePropTypes } from '../propTypes';
+import PropTypes from 'prop-types';
+
+import { slideInLeft, slideInDown, slideInRight, textFadeInDelay2, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
 
 import gadgets from '../assets/gadgets800.webp';
 import person from '../assets/person-with-phone400.webp';
 
 const Electronics = ({ data, handleAddToCart }) => {
     const {
-        scrollTarget, setScrollTarget, setPage,
+        setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
-        setSidebarIconAmount,
+        setSidebarIconAmount, setActivePage
     } = useGlobalContext();
 
     const [electronics, setElectronics] = useState([]);
@@ -26,6 +29,7 @@ const Electronics = ({ data, handleAddToCart }) => {
         if (data && data.length > 0) {
             const electronicsData = data.filter((item) => item.category === 'electronics');
             setElectronics(electronicsData);
+            setActivePage('electronics')
 
             // Create refs for each image and text element
             imageRefs.current = electronicsData.map(() => createRef());
@@ -56,7 +60,7 @@ const Electronics = ({ data, handleAddToCart }) => {
                 rootMargin: '-100px 0px 100px 0px',
             }
         )
-    ), [electronics.length]);
+    ), [electronics.length, setIsVisible, setPage, setSidebarIcon, setSidebarIconAmount, setSidebarNumber, setSidebarText]);
 
     useEffect(() => {
         const homeRef = electronicsHome.current;
@@ -100,7 +104,6 @@ const Electronics = ({ data, handleAddToCart }) => {
         const productObservers = electronics.map((product, index) => {
             const words = product.title.split(' ');
             const firstWord = words.shift();
-            const titleRemainder = words.join(' ');
 
             const observer = setupIntersectionObserver(product, index, firstWord);
 
@@ -201,7 +204,7 @@ const Electronics = ({ data, handleAddToCart }) => {
 
     return (
         <section className="electronics">
-            <div className="electronics-grid">
+            <div id='electronics0' className="electronics-grid">
                 <motion.div {...slideInDown} className="title electronics-title">
                     <h1>Electronics</h1>
                 </motion.div>
@@ -234,7 +237,7 @@ const Electronics = ({ data, handleAddToCart }) => {
                     const titleRemainder = words.join(' ');
 
                     return (
-                        <div
+                        <div id={`electronics${index + 1}`}
                             className={`primary page-layout ${index % 2 === 1 ? 'second-row' : ''}`}
                             key={product.id}
 
@@ -265,5 +268,9 @@ const Electronics = ({ data, handleAddToCart }) => {
         </section>
     );
 }
-
+Electronics.propTypes = {
+    state: statePropTypes,
+    handleAddToCart: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+};
 export default Electronics;

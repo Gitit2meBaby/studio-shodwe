@@ -1,5 +1,6 @@
 import { useState } from 'react';
-
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDecrease, handleIncrease, handleCartClose }) => {
 
     const [checkout, setCheckout] = useState(false)
@@ -116,31 +117,34 @@ const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDec
                         <svg onClick={() => handleCartClose()} stroke="currentColor" fill="currentColor" strokeWidth="1" viewBox="0 0 1024 1024" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg"><path d="M354 671h58.9c4.7 0 9.2-2.1 12.3-5.7L512 561.8l86.8 103.5c3 3.6 7.5 5.7 12.3 5.7H670c6.8 0 10.5-7.9 6.1-13.1L553.8 512l122.4-145.9c4.4-5.2.7-13.1-6.1-13.1h-58.9c-4.7 0-9.2 2.1-12.3 5.7L512 462.2l-86.8-103.5c-3-3.6-7.5-5.7-12.3-5.7H354c-6.8 0-10.5 7.9-6.1 13.1L470.2 512 347.9 657.9A7.95 7.95 0 0 0 354 671z"></path><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z"></path></svg>
                     </div>
 
-                    {!checkout && !payment && (
-                        <div className="cart-items">
-                            {cart.length > 0 ? (
-                                cart.map((item, index) => (
-                                    <div className="cart-item" key={index}>
-                                        <div className='cart-content'>
-                                            <img src={item.image} alt={item.title} />
-                                            <div className="item-details">
-                                                <h2>{item.title}</h2>
-                                                <p>${item.price}</p>
+                    <div className="cart-items-wrapper">
+                        {!checkout && !payment && (
+                            <div className="cart-items">
+                                {cart.length > 0 ? (
+                                    cart.map((item, index) => (
+                                        <div className="cart-item" key={index}>
+                                            <div className='cart-content'>
+                                                <img src={item.image} alt={item.title} />
+                                                <div className="item-details">
+                                                    <h2>{item.title}</h2>
+                                                    <p>${item.price}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="amounts-container">
-                                            <svg onClick={(e,) => handleIncrease(e, item.id)} stroke="currentColor" fill="currentColor" strokeWidth="1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l6 6a.5.5 0 01-.708.708L8 5.707l-5.646 5.647a.5.5 0 01-.708-.708l6-6z" clipRule="evenodd"></path></svg>
-                                            <p>{item.amount}</p>
-                                            <svg onClick={(e,) => handleDecrease(e, item.id)} stroke="currentColor" fill="currentColor" strokeWidth="1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
-                                        </div>
+                                            <div className="amounts-container">
+                                                <svg onClick={(e,) => handleIncrease(e, item.id)} stroke="currentColor" fill="currentColor" strokeWidth="1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l6 6a.5.5 0 01-.708.708L8 5.707l-5.646 5.647a.5.5 0 01-.708-.708l6-6z" clipRule="evenodd"></path></svg>
+                                                <p>{item.amount}</p>
+                                                <svg onClick={(e,) => handleDecrease(e, item.id)} stroke="currentColor" fill="currentColor" strokeWidth="1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
+                                            </div>
 
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No items in your cart...</p>
-                            )}
-                        </div>
-                    )}
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No items in your cart...</p>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
                     {!checkout && !payment && (
                         <>
                             <div className="cart-total">
@@ -163,7 +167,6 @@ const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDec
                                         <input onChange={(e) => handleInputChange(e)} type="text" id="fullName" name="fullName" required
                                             className={formErrors.fullName ? 'error' : ''}
                                             placeholder={formErrors.fullName ? '*Please enter your name' : ''}
-
                                         />
                                     </div>
 
@@ -236,8 +239,8 @@ const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDec
                                 </div>
                                 <div className="payment">
                                     <h2>Your Cart</h2>
-                                    {cart.map((item, index) => (
-                                        <div className="final-list-item" key={item.index}>
+                                    {cart.map((item) => (
+                                        <div className="final-list-item" key={item.id}>
                                             <p>{item.title}</p>
                                             <p>x {item.amount}</p>
                                             <p>${item.price}</p>
@@ -248,7 +251,7 @@ const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDec
                                 </div>
                             </div>
                             <div className="cart-foot">
-                                <button onClick={() => handleDetailsReview()} className='checkout-btn' type="submit">Proceed</button>
+                                <Link to={'/payment'}><button onClick={() => handleDetailsReview()} className='checkout-btn' type="submit">Proceed</button></Link>
                                 <button onClick={(e) => handleDetailsBackBtn(e)} className="clear-btn">Back</button>
                             </div>
                         </>
@@ -258,5 +261,23 @@ const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDec
         </>
     );
 };
+
+Cart.propTypes = {
+    cart: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+        image: PropTypes.string,
+        price: PropTypes.number,
+        amount: PropTypes.number,
+    })),
+    total: PropTypes.number,
+    cartPopup: PropTypes.bool,
+    setCartPopup: PropTypes.func,
+    handleClearCart: PropTypes.func,
+    handleDecrease: PropTypes.func,
+    handleIncrease: PropTypes.func,
+    handleCartClose: PropTypes.func,
+};
+
 
 export default Cart;

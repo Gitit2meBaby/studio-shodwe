@@ -1,16 +1,18 @@
 import { useState, useEffect, useRef, createRef, useCallback, useMemo } from 'react';
 import { useGlobalContext } from "../context"
-import { motion, transform } from 'framer-motion'
-import { slideInLeft, slideInUp, slideInDown, slideInRight, textFadeInDelay1, textFadeInDelay2, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5, slideInDown1, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
+import { statePropTypes } from '../propTypes';
+import PropTypes from 'prop-types';
+import { motion } from 'framer-motion'
+import { slideInLeft, slideInUp, slideInDown, slideInRight, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5, slideInDown1, slideInDown2, slideInDown3, slideInDown4 } from '../animations'
 import mensClothing800 from '../assets/mensClothing800.webp'
 import manOnWall from '../assets/man-on-wall150.webp'
 import manequins from '../assets/manequins300.webp'
 
 const MensClothing = ({ data, handleAddToCart }) => {
     const {
-        scrollTarget, setScrollTarget, setPage,
+        setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
-        setSidebarIconAmount,
+        setSidebarIconAmount, setActivePage
     } = useGlobalContext();
 
     const [mensClothing, setMensClothing] = useState([]);
@@ -26,6 +28,7 @@ const MensClothing = ({ data, handleAddToCart }) => {
         if (data && data.length > 0) {
             const mensClothingData = data.filter((item) => item.category === "men's clothing");
             setMensClothing(mensClothingData);
+            setActivePage("mens")
 
             // Create refs for each image and text element
             imageRefs.current = mensClothingData.map(() => createRef());
@@ -33,7 +36,7 @@ const MensClothing = ({ data, handleAddToCart }) => {
             subHeadingRefs.current = mensClothingData.map(() => createRef());
             textRefs.current = mensClothingData.map(() => createRef());
         }
-    }, [data]);
+    }, [data, setActivePage]);
 
     // Seperate the home observer, useMemo needed so i can use homeObserver in dependecy array to set values on load
     const homeObserver = useMemo(() => (
@@ -55,7 +58,7 @@ const MensClothing = ({ data, handleAddToCart }) => {
                 rootMargin: '-100px 0px 100px 0px',
             }
         )
-    ), [mensClothing.length]);
+    ), [mensClothing.length, setIsVisible, setPage, setSidebarIcon, setSidebarIconAmount, setSidebarNumber, setSidebarText]);
 
     useEffect(() => {
         const homeRef = mensHome.current;
@@ -82,6 +85,7 @@ const MensClothing = ({ data, handleAddToCart }) => {
                             setSidebarNumber(`0${(index + 1) + 1}`);
                             setIsVisible(true);
                             setSidebarIconAmount(mensClothing.length + 1);
+                            console.log('observing:', index);
                         }
                     });
                 },
@@ -201,7 +205,7 @@ const MensClothing = ({ data, handleAddToCart }) => {
     return (
         <section className="mens">
 
-            <div className="mens-grid">
+            <div id='mens0' className="mens-grid">
                 <div className="mens-feature"
                     {...slideInLeft}>
                     <img src={mensClothing800} alt="mens shoes and apparel" />
@@ -222,7 +226,7 @@ const MensClothing = ({ data, handleAddToCart }) => {
                 </div>
                 <motion.div className="title mens-title"
                     {...slideInDown}>
-                    <h1>Men's Clothing</h1>
+                    <h1>Men&apos;s Clothing</h1>
                 </motion.div>
                 <div ref={mensHome} className='img-box'>
                     <motion.img {...slideInUp} src={manOnWall} alt="man leaning aganst wall" />
@@ -242,6 +246,7 @@ const MensClothing = ({ data, handleAddToCart }) => {
                         <div
                             className={`primary page-layout ${index % 2 === 1 ? 'second-row' : ''}`}
                             key={product.id}
+                            id={`mens${index + 1}`}
 
                         >
                             <img
@@ -270,7 +275,11 @@ const MensClothing = ({ data, handleAddToCart }) => {
         </section>
     );
 }
-
+MensClothing.propTypes = {
+    state: statePropTypes,
+    handleAddToCart: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+};
 export default MensClothing;
 
 

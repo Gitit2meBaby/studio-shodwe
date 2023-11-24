@@ -1,16 +1,15 @@
-import featureBG from '../assets/feature-bg.webp'
-import secondary from '../assets/secondary600.webp'
+
 import { useGlobalContext } from "../context"
 import { useEffect, useRef } from 'react'
-import { motion, transform } from 'framer-motion'
-import { slideInLeft, slideInUp, slideInDown, slideInRight, textFadeInDelay1, textFadeInDelay2, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5 } from '../animations'
+import { motion } from 'framer-motion'
+import { slideInLeft, slideInUp, slideInDown, slideInRight, textFadeInDelay3, textFadeInDelay4, textFadeInDelay5 } from '../animations'
 
 
 const Hero = () => {
     const {
-        scrollTarget, setScrollTarget, setPage, sidebarText, setSidebarText, sidebarIcon, setSidebarIcon,
-        sidebarNumber, setSidebarNumber,
-        sidebarIconAmount, setSidebarIconAmount, setIsVisible
+        setPage, setSidebarText, setSidebarIcon,
+        setSidebarNumber, setActivePage,
+        setSidebarIconAmount, setIsVisible, handleScrollTo
     } = useGlobalContext();
 
     const hero = useRef()
@@ -26,6 +25,7 @@ const Hero = () => {
                         setSidebarIconAmount(4);
                         setSidebarNumber('01');
                         setIsVisible(true);
+                        setActivePage('home')
                     }
                 });
             },
@@ -34,6 +34,7 @@ const Hero = () => {
                 rootMargin: '50px 0px 0px 0px',
             }
         );
+        const heroCurrent = hero.current
 
         // Check if firstSection.current is not null before observing
         if (hero.current) {
@@ -43,15 +44,15 @@ const Hero = () => {
         // Cleanup function
         return () => {
             // Check if firstSection.current is not null before unobserving
-            if (hero.current) {
+            if (heroCurrent) {
                 setIsVisible(false)
-                observer.unobserve(hero.current);
+                observer.unobserve(heroCurrent);
             }
         };
-    }, [hero.current, setPage, setSidebarText, setSidebarIcon, setSidebarNumber, setSidebarIconAmount]);
+    }, [setPage, setSidebarText, setSidebarIcon, setSidebarNumber, setSidebarIconAmount, setIsVisible]);
 
     return (
-        <motion.section className='hero'>
+        <motion.section id="home0" className='hero'>
 
             <motion.div className='feature-img'
                 {...slideInLeft}
@@ -61,12 +62,12 @@ const Hero = () => {
                 <motion.p
                     {...textFadeInDelay4}>Find Inspirations to styling dress and upgrade your outfit</motion.p>
                 <motion.button ref={hero}
+                    onClick={() => handleScrollTo('home', 1)}
                     {...textFadeInDelay5}>SHOW ME</motion.button>
             </motion.div>
 
             <motion.div className='secondary-img'
                 {...slideInDown}>
-                {/* <img src={secondary} alt="group of people posing" /> */}
             </motion.div>
 
             <div className="graphics-container">

@@ -2,13 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from "../context"
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom'
+import { statePropTypes } from '../propTypes';
+import PropTypes from 'prop-types';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const ProductsCarousel = ({ data }) => {
     const {
-        scrollTarget, setScrollTarget, setPage,
+        setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible
     } = useGlobalContext();
 
@@ -37,17 +39,19 @@ const ProductsCarousel = ({ data }) => {
             }
         );
 
+        const carouselSectionCurrent = carouselSection.current
+
         if (carouselSection.current) {
             observer.observe(carouselSection.current);
         }
 
         return () => {
-            if (carouselSection.current) {
+            if (carouselSectionCurrent) {
                 setIsVisible(false)
-                observer.unobserve(carouselSection.current);
+                observer.unobserve(carouselSectionCurrent);
             }
         };
-    }, [carouselSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
+    }, [carouselSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible]);
 
 
     // slider functionality
@@ -102,7 +106,7 @@ const ProductsCarousel = ({ data }) => {
 
     return (
         <>
-            <section ref={carouselSection} className="products-carousel">
+            <section id='home2' ref={carouselSection} className="products-carousel">
                 <h2>womens jewelery</h2>
                 <Slider {...settings}>
                     {reducedData &&
@@ -126,6 +130,12 @@ const ProductsCarousel = ({ data }) => {
             </div></Link>
         </>
     );
+};
+
+ProductsCarousel.propTypes = {
+    state: statePropTypes,
+    handleAddToCart: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default ProductsCarousel;

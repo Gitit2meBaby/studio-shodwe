@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from "../context"
 import { Link } from 'react-router-dom'
-import gadgets from '../assets/gadgets800.webp'
+import { statePropTypes } from '../propTypes';
+import PropTypes from 'prop-types';
 
 
 const WomensClothing = ({ data, handleAddToCart }) => {
     const {
-        scrollTarget, setScrollTarget, setPage,
+        setPage, setActivePage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible
     } = useGlobalContext();
 
@@ -38,18 +39,18 @@ const WomensClothing = ({ data, handleAddToCart }) => {
                 rootMargin: '150px 0px 0px 0px',
             }
         );
-
+        const finalSectionCurrent = finalSection.current
         if (finalSection.current) {
             observer.observe(finalSection.current);
         }
 
         return () => {
-            if (finalSection.current) {
+            if (finalSectionCurrent) {
                 setIsVisible(false)
-                observer.unobserve(finalSection.current);
+                observer.unobserve(finalSectionCurrent);
             }
         };
-    }, [finalSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
+    }, [setIsVisible, finalSection, setPage, setSidebarText, setSidebarIcon, setSidebarNumber]);
 
     // filter out womens clothing from data array
     useEffect(() => {
@@ -57,6 +58,8 @@ const WomensClothing = ({ data, handleAddToCart }) => {
             const womens = data.filter((item) => item.category === "women's clothing");
             setWomens(womens);
         }
+
+
     }, [data]);
 
     // format the Title nicer by seperating the first word (needed useEffect because otherwise error if data is unavailable)
@@ -68,6 +71,7 @@ const WomensClothing = ({ data, handleAddToCart }) => {
 
             setFirstWord(firstWord);
             setTitleRemainder(titleRemainder);
+            setActivePage('womens')
 
             // format description with a break
             if (womens[0].description) {
@@ -80,6 +84,7 @@ const WomensClothing = ({ data, handleAddToCart }) => {
                 const secondHalf = sentences.slice(Math.ceil(sentences.length / 2)).join('.\n');
                 setInitialContent(secondHalf);
             }
+
         }
     }, [womens]);
 
@@ -92,10 +97,11 @@ const WomensClothing = ({ data, handleAddToCart }) => {
     }
 
     return (
-        <section ref={finalSection} className="womens-clothing">
+        <section id='home3' ref={finalSection} className="womens-clothing">
 
             {womens && womens.length > 0 && (
                 womens.map((product, index) => (
+
                     index === 0 && (
                         <div className='primary' key={product.id}>
                             <img src={product.image} alt={product.title} />
@@ -159,6 +165,12 @@ const WomensClothing = ({ data, handleAddToCart }) => {
             </div></Link>
         </section>
     );
-
 }
+
+WomensClothing.propTypes = {
+    state: statePropTypes,
+    handleAddToCart: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+};
+
 export default WomensClothing;

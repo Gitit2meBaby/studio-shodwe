@@ -1,7 +1,7 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useGlobalContext } from './context';
 import { AnimatePresence } from 'framer-motion'
+import { useGlobalContext } from "./context"
 import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop'
 import ProductsDisplay from './components/ProductsDisplay';
@@ -16,6 +16,7 @@ import Jewelery from './pages/Jewelery';
 import MensClothing from './pages/MensClothing';
 import Cart from './pages/Cart';
 import Womens from './pages/Womens';
+import Payment from './pages/Payment';
 
 const initialState = {
   loading: false,
@@ -30,12 +31,13 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_START':
       return { ...state, loading: true, error: null };
-    case 'FETCH_SUCCESS':
+    case 'FETCH_SUCCESS': {
       const uniqueCategories = Array.from(new Set(action.payload.map((product) => product.category)));
       return { ...state, loading: false, data: action.payload, categories: uniqueCategories, error: null };
+    }
     case 'FETCH_ERROR':
       return { ...state, loading: false, data: null, categories: [], error: action.payload };
-    case 'ADD_TO_CART':
+    case 'ADD_TO_CART': {
       const { id } = action.payload;
       const existingItemIndex = state.cart.findIndex(item => item.id === id);
 
@@ -64,8 +66,9 @@ const reducer = (state, action) => {
           total: newTotal,
         };
       }
+    }
 
-    case 'INCREASE':
+    case 'INCREASE': {
       const idToIncrease = action.payload.id;
       const increasedExistingItemIndex = state.cart.findIndex(item => item.id === idToIncrease);
 
@@ -87,8 +90,8 @@ const reducer = (state, action) => {
       }
 
       return state;
-
-    case 'DECREASE':
+    }
+    case 'DECREASE': {
       const idToDecrease = action.payload.id;
       const decreasedExistingItemIndex = state.cart.findIndex(item => item.id === idToDecrease);
 
@@ -100,7 +103,6 @@ const reducer = (state, action) => {
         const decreasedItem = state.cart[decreasedExistingItemIndex];
 
         if (decreasedItem.amount === 1) {
-          // If the amount becomes 1 after decreasing, remove the item
           return {
             ...state,
             cart: updatedCart.filter(item => item.amount > 0),
@@ -111,14 +113,12 @@ const reducer = (state, action) => {
           return {
             ...state,
             cart: updatedCart,
-            total: newTotal >= 0 ? newTotal : 0, // Ensure the total is not negative
+            total: newTotal >= 0 ? newTotal : 0,
           };
         }
       }
-
       return state;
-
-
+    }
     case 'REMOVE_ITEM':
       return {
         ...state,
@@ -154,6 +154,7 @@ const fetchData = async (dispatch) => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation()
+  const { setCartPopup } = useGlobalContext();
 
   const handleAddToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
@@ -176,6 +177,7 @@ const App = () => {
 
   const handleClearCart = () => {
     dispatch({ type: 'CLEAR' });
+    setCartPopup(false)
   };
 
 
@@ -186,7 +188,11 @@ const App = () => {
   return (
     <>
       <AnimatePresence>
-        <Header state={state} />
+        <Header state={state}
+          handleIncrease={handleIncrease}
+          handleDecrease={handleDecrease}
+          handleRemoveItem={handleRemoveItem}
+          handleClearCart={handleClearCart} />
         <ScrollToTop />
         <Sidebar state={state}
           handleIncrease={handleIncrease}
@@ -208,6 +214,7 @@ const App = () => {
           <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} />} handleAddToCart={handleAddToCart} />
           <Route path="/women's clothing" element={<Womens page="women's" data={state.data} handleAddToCart={handleAddToCart} />} />
           <Route path="/cart" element={<Cart page='cart' data={state.data} />} />
+          < Route path="/payment" element={<Payment />} />
         </Routes>
       </AnimatePresence>
       <Footer state={state} />

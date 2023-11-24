@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const AppContext = createContext();
 
@@ -12,34 +12,22 @@ const AppProvider = ({ children }) => {
     const [isVisible, setIsVisible] = useState(true)
     const [pageTextRefs, setPageTextRefs] = useState({});
     const [activePage, setActivePage] = useState('home');
+    const [cartPopup, setCartPopup] = useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-    const handleScrollTo = (pageIndex, index) => {
-        const selectedTextRefs = pageTextRefs[pageIndex];
-        console.log('selectedTextRefs:', selectedTextRefs);
 
-        if (selectedTextRefs && selectedTextRefs[index] && selectedTextRefs[index].current) {
-            const scrollToIndex = index > 0 ? index - 1 : index;
-            console.log('scrollToIndex:', scrollToIndex);
+    // scroll functionality for sidebar icons
+    const handleScrollTo = (activePage, index) => {
+        let scrollPoint = document.getElementById(`${activePage}${index}`)
+        if (scrollPoint) {
+            const { top } = scrollPoint.getBoundingClientRect();
 
-            const targetRef = selectedTextRefs[scrollToIndex];
-            console.log('targetRef:', targetRef);
-
-            if (targetRef && targetRef.current) {
-                const { top } = targetRef.current.getBoundingClientRect();
-                console.log('top:', top);
-
-                window.scrollTo({
-                    top: window.scrollY + top,
-                    behavior: 'smooth',
-                });
-            } else {
-                console.log('targetRef.current is null or undefined');
-            }
+            window.scrollTo({
+                top: window.scrollY + top,
+                behavior: 'smooth',
+            });
         }
-        console.log('click', 'on page:', pageIndex, 'index=', index);
     };
-
-    // set up cart with useReducer
 
 
     return (
@@ -52,8 +40,9 @@ const AppProvider = ({ children }) => {
             sidebarIconAmount, setSidebarIconAmount,
             isVisible, setIsVisible,
             handleScrollTo, pageTextRefs, setPageTextRefs,
-            activePage,
-            setActivePage,
+            activePage, setActivePage,
+            cartPopup, setCartPopup,
+            isMobileMenuOpen, setIsMobileMenuOpen
         }}>
             {children}
         </AppContext.Provider>
