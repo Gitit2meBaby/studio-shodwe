@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+
 
 const AppContext = createContext();
 
@@ -14,6 +16,7 @@ const AppProvider = ({ children }) => {
     const [activePage, setActivePage] = useState('home');
     const [cartPopup, setCartPopup] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [bottomBar, setBottomBar] = useState(false)
 
 
     // scroll functionality for sidebar icons
@@ -29,6 +32,13 @@ const AppProvider = ({ children }) => {
         }
     };
 
+    // Handle show bottom bar for set timeout
+    const showBottomBar = () => {
+        setBottomBar(true)
+        setTimeout(() => {
+            setBottomBar(false)
+        }, 3000);
+    }
 
     return (
         <AppContext.Provider value={{
@@ -42,7 +52,8 @@ const AppProvider = ({ children }) => {
             handleScrollTo, pageTextRefs, setPageTextRefs,
             activePage, setActivePage,
             cartPopup, setCartPopup,
-            isMobileMenuOpen, setIsMobileMenuOpen
+            isMobileMenuOpen, setIsMobileMenuOpen,
+            showBottomBar, bottomBar
         }}>
             {children}
         </AppContext.Provider>
@@ -52,5 +63,9 @@ const AppProvider = ({ children }) => {
 export const useGlobalContext = () => {
     return useContext(AppContext)
 }
+
+AppProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 export { AppProvider, AppContext };

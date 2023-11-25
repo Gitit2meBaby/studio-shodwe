@@ -34,7 +34,13 @@ header {
 header img {
   cursor: pointer;
 }
-header button {
+
+.mob-nav-item,
+.nav-item {
+  position: relative;
+}
+.mob-nav-item button,
+.nav-item button {
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -43,12 +49,9 @@ header button {
   padding-bottom: 0.5rem;
   text-transform: capitalize;
 }
-header button:hover {
+.mob-nav-item button:hover,
+.nav-item button:hover {
   border-bottom: 2px solid rgb(59, 59, 59);
-}
-
-.nav-item {
-  position: relative;
 }
 
 .nav-dropdown {
@@ -235,6 +238,44 @@ aside .sidebar .active-location {
     font-size: 1rem;
   }
 }
+.bottom-bar {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  .bottom-bar {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.5s ease;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    border-top: 2px solid black;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 15;
+  }
+  .bottom-bar .cart-btn-container {
+    margin: 0;
+    border-radius: 0;
+  }
+  .bottom-bar .bottom-checkout-btn {
+    border: none;
+    background-color: #E8CA00;
+    font-family: "Codec Pro Extrabold";
+    font-size: 1rem;
+    padding: 1.25rem 0rem 1.25rem 1rem;
+    margin: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .bottom-bar .clear-btn {
+    border: none;
+    margin-left: auto;
+  }
+}
 .cart-modal {
   position: absolute;
   top: 2.3rem;
@@ -305,6 +346,7 @@ aside .sidebar .active-location {
 }
 .cart-item img {
   max-height: 80px;
+  width: auto;
   margin-right: 1rem;
 }
 
@@ -315,12 +357,20 @@ aside .sidebar .active-location {
   align-items: center;
   justify-self: flex-end;
 }
+.amounts-container .cart-item-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E8CA00;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  margin: 0.5rem 0;
+}
 .amounts-container p {
   font-family: "Codec Pro Extrabold";
   margin: 0.5rem 0;
-  background-color: #E8CA00;
   padding: 0.5rem 0.7rem;
-  border-radius: 50%;
 }
 .amounts-container svg {
   cursor: pointer;
@@ -346,30 +396,28 @@ aside .sidebar .active-location {
   padding: 0.5rem 1rem;
 }
 
+.checkout-btn,
 .clear-btn {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: 1rem;
   font-family: "Codec Pro Extrabold";
   font-size: 1.2rem;
   letter-spacing: 0.2rem;
-  background-color: black;
   color: white;
   text-transform: uppercase;
   padding: 1rem 1rem;
   border: 2px solid white;
 }
 
-.checkout-btn {
-  border: 2px solid white;
-  font-family: "Codec Pro Extrabold";
-  background-color: #E8CA00;
-  padding: 1rem;
-  text-transform: uppercase;
-  font-size: 1.2rem;
-  letter-spacing: 0.2rem;
+.clear-btn {
+  border: none;
+  background-color: transparent;
   cursor: pointer;
+  font-size: 1rem;
+  background-color: black;
+}
+
+.checkout-btn {
+  background-color: #E8CA00;
+  color: rgb(59, 59, 59);
 }
 
 .cart-mobile {
@@ -384,11 +432,11 @@ aside .sidebar .active-location {
     box-shadow: none;
   }
   .cart-modal .cart-head {
-    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
   }
   .cart-modal .cart-head svg {
-    transform: translateX(-1.5rem);
-    transform: translateY(1.2rem);
+    transform: translateX(-0.5rem);
+    margin: 0;
   }
   .item-details {
     padding: 0.5rem;
@@ -402,7 +450,6 @@ aside .sidebar .active-location {
     margin-bottom: 2rem;
   }
   .cart-item img {
-    max-height: 80px;
     margin: 0;
     margin-right: 1rem;
   }
@@ -414,14 +461,15 @@ aside .sidebar .active-location {
     justify-self: flex-end;
   }
   .amounts-container svg {
-    margin-right: 0.4rem;
+    margin-right: 0.5rem;
   }
   .amounts-container svg:first-of-type {
     margin-bottom: auto;
+    margin-left: 0.1rem;
   }
   .amounts-container svg:last-of-type {
     margin-bottom: auto;
-    margin-right: 0.35rem;
+    margin-right: 0.45rem;
   }
   .cart-total {
     border-top: 1px solid black;
@@ -443,24 +491,32 @@ aside .sidebar .active-location {
     background-color: transparent;
     cursor: pointer;
     font-size: 1rem;
-    font-family: "Codec Pro Extrabold";
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
     background-color: black;
+    font-family: "Codec Pro Extrabold";
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
     color: white;
     text-transform: uppercase;
-    padding: 1rem 1rem;
+    padding: 1rem;
     border: 2px solid white;
   }
   .checkout-btn {
-    border: 2px solid white;
-    font-family: "Codec Pro Extrabold";
     background-color: #E8CA00;
+    font-family: "Codec Pro Extrabold";
     padding: 1rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.1rem;
+    border: 2px solid white;
     cursor: pointer;
+  }
+}
+@media screen and (max-width: 950px) {
+  .cart-item {
+    margin-bottom: 1rem;
+  }
+  .amounts-container {
+    max-height: 100px;
   }
 }
 .shipping-info {
@@ -490,12 +546,16 @@ aside .sidebar .active-location {
 
 @media screen and (max-width: 500px) {
   .shipping-info {
-    padding-right: 2rem;
+    padding: 0 2rem 1rem 1rem;
+    max-height: 50dvh;
   }
   .form-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+  .btn-container button {
+    font-size: 1rem;
   }
 }
 .payment {
@@ -702,9 +762,13 @@ aside .sidebar .active-location {
   }
   .hero button {
     padding: 1rem;
+    margin-bottom: 2rem;
   }
   .feature-img h1 {
     padding-top: 4rem;
+  }
+  .feature-img p {
+    line-height: 2rem;
   }
   .secondary-img,
   .graphics-container {
@@ -872,7 +936,7 @@ aside .sidebar .active-location {
   letter-spacing: 0.2rem;
 }
 .hover-div .small-btn:hover {
-  transform: scale(1.2);
+  transform: scale(1);
   transition: transform 0.5s ease-in;
 }
 .hover-div .text-btn {
@@ -888,6 +952,47 @@ aside .sidebar .active-location {
 
 .tap-info {
   display: none;
+}
+
+.relative-btn-container {
+  position: relative;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.small-item-count,
+.item-count {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgb(59, 59, 59);
+}
+.small-item-count p,
+.item-count p {
+  color: #E8CA00;
+  font-family: "Codec Pro Extrabold";
+}
+
+.item-count {
+  width: 40px;
+  height: 40px;
+  top: -1rem;
+  right: -1rem;
+}
+.item-count p {
+  margin-top: 1.5rem;
+}
+
+.small-item-count {
+  width: 25px;
+  height: 25px;
+  top: -0.5rem;
+  right: -0.5rem;
+}
+.small-item-count p {
+  font-size: 0.8rem;
 }
 
 @media screen and (max-width: 700px) {
@@ -1173,7 +1278,7 @@ aside .sidebar .active-location {
   .products-carousel h2 {
     text-shadow: 0px 180px black;
   }
-  .products-carousel .slider-img {
+  .slider img {
     padding: 0;
   }
 }
@@ -1303,6 +1408,9 @@ aside .sidebar .active-location {
 .page-layout .btn-container {
   padding-top: 3rem;
 }
+.page-layout .checkout-btn:hover {
+  border: none;
+}
 
 .second-row {
   grid-template-columns: 60% 1fr;
@@ -1389,7 +1497,7 @@ aside .sidebar .active-location {
   flex-direction: column;
   justify-content: center;
   grid-row: span 2;
-  z-index: -1;
+  z-index: 0;
 }
 .mens-feature h2,
 .mens-feature p,
@@ -1427,6 +1535,7 @@ aside .sidebar .active-location {
   padding: 1rem 2rem;
   margin-top: 2rem;
   cursor: pointer;
+  z-index: 1;
 }
 
 .person-img {

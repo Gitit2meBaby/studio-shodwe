@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { useGlobalContext } from "./context"
@@ -154,30 +154,47 @@ const fetchData = async (dispatch) => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const location = useLocation()
-  const { setCartPopup } = useGlobalContext();
+  const { setCartPopup, showBottomBar } = useGlobalContext();
+  const [addedToCart, setAddedToCart] = useState({});
 
   const handleAddToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product });
+    const { id } = product;
+    setAddedToCart(prevState => ({
+      ...prevState,
+      [id]: true,
+    }));
+    showBottomBar()
   };
 
-  const handleIncrease = (e, id) => {
-    e.stopPropagation()
+
+  const handleIncrease = (id) => {
+
     dispatch({ type: 'INCREASE', payload: { id } });
+    setAddedToCart(prevState => ({
+      ...prevState,
+      [id]: true,
+    }));
   };
 
-  const handleDecrease = (e, id) => {
+  const handleDecrease = (id) => {
     dispatch({ type: 'DECREASE', payload: { id } });
-    e.stopPropagation()
+    setAddedToCart(prevState => ({
+      ...prevState,
+      [id]: false,
+    }));
+
   };
 
-  const handleRemoveItem = (e, id) => {
-    e.stopPropagation()
+  const handleRemoveItem = (id) => {
+
     dispatch({ type: 'REMOVE_ITEM', payload: { id } });
   };
 
   const handleClearCart = () => {
     dispatch({ type: 'CLEAR' });
     setCartPopup(false)
+    setAddedToCart({})
   };
 
 
@@ -203,16 +220,16 @@ const App = () => {
           <Route path="/" element={
             <>
               <Hero page='home' />
-              <ProductsDisplay data={state.data} page='home' handleAddToCart={handleAddToCart} />
+              <ProductsDisplay data={state.data} page='home' handleAddToCart={handleAddToCart} addedToCart={addedToCart} cart={state.cart} />
               <MensBanner page='home' />
-              <ProductsCarousel data={state.data} categories={state.categories} page='home' />
-              <WomensClothing data={state.data} page='home' handleAddToCart={handleAddToCart} />
+              <ProductsCarousel data={state.data} categories={state.categories} addedToCart={addedToCart} cart={state.cart} page='home' />
+              <WomensClothing data={state.data} page='home' handleAddToCart={handleAddToCart} addedToCart={addedToCart} cart={state.cart} />
             </>
           } />
-          <Route path="/electronics" element={<Electronics page='electronics' data={state.data} handleAddToCart={handleAddToCart} />} />
-          <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} handleAddToCart={handleAddToCart} />} />
-          <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} handleAddToCart={handleAddToCart} />} />
-          <Route path="/women's clothing" element={<Womens page="women's" data={state.data} handleAddToCart={handleAddToCart} />} />
+          <Route path="/electronics" element={<Electronics page='electronics' data={state.data} handleAddToCart={handleAddToCart} addedToCart={addedToCart} cart={state.cart} />} />
+          <Route path="/men's clothing" element={<MensClothing page='mens' data={state.data} handleAddToCart={handleAddToCart} addedToCart={addedToCart} cart={state.cart} />} />
+          <Route path="/jewelery" element={<Jewelery page='jewelery' data={state.data} handleAddToCart={handleAddToCart} addedToCart={addedToCart} cart={state.cart} />} />
+          <Route path="/women's clothing" element={<Womens page="women's" data={state.data} handleAddToCart={handleAddToCart} addedToCart={addedToCart} cart={state.cart} />} />
           <Route path="/cart" element={<Cart page='cart' data={state.data} />} />
           < Route path="/payment" element={<Payment />} />
         </Routes>

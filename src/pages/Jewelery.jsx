@@ -8,7 +8,7 @@ import { slideInLeft, slideInUp, slideInRight, textFadeInDelay3, textFadeInDelay
 import jewelery800 from '../assets/jewelery800.webp'
 import jewelery400 from '../assets/jewelery400.webp'
 
-const Jewelery = ({ data, handleAddToCart }) => {
+const Jewelery = ({ data, handleAddToCart, cart, addedToCart }) => {
     const {
         setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -266,7 +266,20 @@ const Jewelery = ({ data, handleAddToCart }) => {
                                 <p className='set-down'
                                     ref={textRefs.current[index]}>{product.description}</p>
                                 <div className="btn-container">
-                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
+                                    <div className="relative-btn-container">
+                                        <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>
+                                            {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                        </button>
+                                        {cart.map((cartItem) => {
+                                            if (cartItem.id === product.id) {
+                                                return (
+                                                    <div className='item-count' key={cartItem.id}>
+                                                        <p>{cartItem.amount}</p>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}</div>
                                 </div>
                             </div>
                         </div>

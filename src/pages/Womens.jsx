@@ -8,7 +8,7 @@ import { slideInLeft, slideInUp, slideInDown, slideInDown1, slideInDown2, slideI
 import womens400 from '../assets/womens400.webp'
 import womensPortrait from '../assets/womensportrait.webp'
 
-const Womens = ({ data, handleAddToCart }) => {
+const Womens = ({ data, handleAddToCart, addedToCart, cart }) => {
     const {
         setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -300,7 +300,20 @@ const Womens = ({ data, handleAddToCart }) => {
                                 }
 
                                 <div className="btn-container">
-                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
+                                    <div className="relative-btn-container">
+                                        <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>
+                                            {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                        </button>
+                                        {cart.map((cartItem) => {
+                                            if (cartItem.id === product.id) {
+                                                return (
+                                                    <div className='item-count' key={cartItem.id}>
+                                                        <p>{cartItem.amount}</p>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}</div>
                                 </div>
                             </div>
                         </div>

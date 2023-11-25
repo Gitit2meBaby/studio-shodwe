@@ -9,7 +9,7 @@ import { slideInLeft, slideInDown, slideInRight, textFadeInDelay2, textFadeInDel
 import gadgets from '../assets/gadgets800.webp';
 import person from '../assets/person-with-phone400.webp';
 
-const Electronics = ({ data, handleAddToCart }) => {
+const Electronics = ({ data, handleAddToCart, cart, addedToCart }) => {
     const {
         setPage, handleScrollTo,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -38,7 +38,7 @@ const Electronics = ({ data, handleAddToCart }) => {
             textRefs.current = electronicsData.map(() => createRef());
 
         }
-    }, [data]);
+    }, [data, setActivePage]);
 
     // Seperate the home observer, useMemo needed so i can use homeObserver in dependecy array to set values on load
     const homeObserver = useMemo(() => (
@@ -75,7 +75,7 @@ const Electronics = ({ data, handleAddToCart }) => {
 
     //interaction observers to handle scrollTo and sidebar
     const setupIntersectionObserver = useCallback(
-        (product, index, firstWord) => {
+        (index, firstWord) => {
 
             return new IntersectionObserver(
                 (entries) => {
@@ -111,7 +111,7 @@ const Electronics = ({ data, handleAddToCart }) => {
         });
 
         // Attach the observer to each product
-        electronics.forEach((product, index) => {
+        electronics.forEach((index) => {
             if (textRefs.current[index] && textRefs.current[index].current) {
                 productObservers[index].observe(textRefs.current[index].current);
             }
@@ -261,7 +261,20 @@ const Electronics = ({ data, handleAddToCart }) => {
                                 <p className='set-down'
                                     ref={textRefs.current[index]}>{product.description}</p>
                                 <div className="btn-container">
-                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
+                                    <div className="relative-btn-container">
+                                        <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>
+                                            {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                        </button>
+                                        {cart.map((cartItem) => {
+                                            if (cartItem.id === product.id) {
+                                                return (
+                                                    <div className='item-count' key={cartItem.id}>
+                                                        <p>{cartItem.amount}</p>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}</div>
                                 </div>
                             </div>
                         </div>

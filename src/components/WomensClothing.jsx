@@ -5,7 +5,7 @@ import { statePropTypes } from '../propTypes';
 import PropTypes from 'prop-types';
 
 
-const WomensClothing = ({ data, handleAddToCart }) => {
+const WomensClothing = ({ data, handleAddToCart, cart, addedToCart }) => {
     const {
         setPage, setActivePage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible
@@ -131,7 +131,20 @@ const WomensClothing = ({ data, handleAddToCart }) => {
                                     <p style={{ marginBottom: '2rem' }}>{secondaryContent}</p>
                                 }
                                 <div className="btn-container">
-                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
+                                    <div className="relative-btn-container">
+                                        <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>
+                                            {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                        </button>
+                                        {cart.map((cartItem) => {
+                                            if (cartItem.id === product.id) {
+                                                return (
+                                                    <div className='item-count' key={cartItem.id}>
+                                                        <p>{cartItem.amount}</p>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}</div>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +167,20 @@ const WomensClothing = ({ data, handleAddToCart }) => {
                                             <h2>{reduceToWords(product.title, 4)}</h2>
                                             <p>${product.price}</p>
                                             <div className="btn-container">
-                                                <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>Add</button>
+                                                <div className="relative-btn-container">
+                                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>
+                                                        {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                                    </button>
+                                                    {cart.map((cartItem) => {
+                                                        if (cartItem.id === product.id) {
+                                                            return (
+                                                                <div className='small-item-count' key={cartItem.id}>
+                                                                    <p>{cartItem.amount}</p>
+                                                                </div>
+                                                            );
+                                                        }
+                                                        return null;
+                                                    })}</div>
                                                 <Link to={"/women's clothing"}><button className="text-btn">Learn More...</button></Link>
                                             </div>
                                         </div>
@@ -165,7 +191,7 @@ const WomensClothing = ({ data, handleAddToCart }) => {
                     ))
                 )}
             </div>
-            <p>*Tap for more info...</p>
+            <p className='tap-info'>*Tap for more info...</p>
 
             <Link to={'/jewelery'}><div className='jewellry-link womens-link'>
                 <div><h2>See collection</h2></div>

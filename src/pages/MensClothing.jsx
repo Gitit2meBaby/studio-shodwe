@@ -8,7 +8,7 @@ import mensClothing800 from '../assets/mensClothing800.webp'
 import manOnWall from '../assets/man-on-wall150.webp'
 import manequins from '../assets/manequins300.webp'
 
-const MensClothing = ({ data, handleAddToCart }) => {
+const MensClothing = ({ data, handleAddToCart, addedToCart, cart }) => {
     const {
         setPage,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -266,7 +266,20 @@ const MensClothing = ({ data, handleAddToCart }) => {
                                 <p className='set-down'
                                     ref={textRefs.current[index]}>{product.description}</p>
                                 <div className="btn-container">
-                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add To Cart</button>
+                                    <div className="relative-btn-container">
+                                        <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>
+                                            {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                        </button>
+                                        {cart.map((cartItem) => {
+                                            if (cartItem.id === product.id) {
+                                                return (
+                                                    <div className='item-count' key={cartItem.id}>
+                                                        <p>{cartItem.amount}</p>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}</div>
                                 </div>
                             </div>
                         </div>

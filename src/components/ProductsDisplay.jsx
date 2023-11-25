@@ -5,7 +5,7 @@ import { statePropTypes } from '../propTypes';
 import PropTypes from 'prop-types';
 
 
-const ProductsDisplay = ({ data, handleAddToCart }) => {
+const ProductsDisplay = ({ data, handleAddToCart, addedToCart, cart }) => {
     const {
         setPage, handleScrollTo,
         setSidebarText, setSidebarIcon, setSidebarNumber, setIsVisible,
@@ -88,7 +88,21 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
                                     <h4>${product.price}
                                         <span>{`   $${(product.price * 1.1).toFixed(2)}`}</span>
                                     </h4>
-                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>Add to Cart</button>
+                                    <div className="relative-btn-container">
+                                        <button onClick={() => handleAddToCart(product)} className='add-cart-btn'>
+                                            {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                        </button>
+                                        {cart.map((cartItem) => {
+                                            if (cartItem.id === product.id) {
+                                                return (
+                                                    <div className='item-count' key={cartItem.id}>
+                                                        <p>{cartItem.amount}</p>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        })}</div>
+
                                 </div>
                             </div>
                         )}
@@ -112,7 +126,20 @@ const ProductsDisplay = ({ data, handleAddToCart }) => {
                                             <h2>{product.title}</h2>
                                             <p>${product.price}</p>
                                             <div className="btn-container">
-                                                <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>Add</button>
+                                                <div className="relative-btn-container">
+                                                    <button onClick={() => handleAddToCart(product)} className='add-cart-btn small-btn'>
+                                                        {!addedToCart[product.id] ? 'Add to Cart' : 'In Cart'}
+                                                    </button>
+                                                    {cart.map((cartItem) => {
+                                                        if (cartItem.id === product.id) {
+                                                            return (
+                                                                <div className='small-item-count' key={cartItem.id}>
+                                                                    <p>{cartItem.amount}</p>
+                                                                </div>
+                                                            );
+                                                        }
+                                                        return null;
+                                                    })}</div>
                                                 <Link to={"/men's clothing"}><button
                                                     onClick={() => handleScrollTo('mens', { index })}
                                                     className="text-btn">Learn More...</button></Link>
@@ -134,6 +161,8 @@ ProductsDisplay.propTypes = {
     state: statePropTypes,
     handleAddToCart: PropTypes.func,
     data: PropTypes.arrayOf(PropTypes.object),
+    cart: PropTypes.arrayOf(PropTypes.object),
+    addedToCart: PropTypes.func,
 };
 
 export default ProductsDisplay;
