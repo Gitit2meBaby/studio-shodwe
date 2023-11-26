@@ -313,7 +313,8 @@ aside {
         .cart-btn-container {
             margin: 0;
             border-radius: 0;
-            min-height: 100%
+            min-height: 100%;
+            border: none;
         }
 
         .bottom-btn-wrapper {
@@ -626,7 +627,10 @@ aside {
     .shipping-info {
         padding: 0 2rem 1rem 1rem;
         max-height: 50dvh;
+    }
 
+    .payment-info {
+        max-height: 70dvh;
     }
 
     .form-group {
@@ -1451,7 +1455,7 @@ aside {
         }
     }
 
-    .slider img {
+    .slider-img {
         padding: 0;
         z-index: -1 !important;
     }
@@ -1461,6 +1465,7 @@ aside {
         width: 200% !important;
         background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 30%, transparent 60%);
     }
+
 
 }
 

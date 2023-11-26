@@ -232,7 +232,7 @@ const Cart = ({ cart, total, cartPopup, setCartPopup, handleClearCart, handleDec
 
                     {payment && (
                         <>
-                            <div className="shipping-info">
+                            <div className="shipping-info payment-info">
                                 <div className="details">
                                     <h2>Please review your Details</h2>
                                     <p>{formData.fullName}</p>
