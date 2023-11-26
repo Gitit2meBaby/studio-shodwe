@@ -302,7 +302,7 @@ aside {
         opacity: 0;
         transition: all .5s ease;
         @include aligned();
-        padding: 1rem;
+        padding: 2rem 1rem 1.5rem 1rem;
         background-color: white;
         border-top: 2px solid black;
         position: fixed;
@@ -1358,7 +1358,6 @@ aside {
         position: relative;
 
         img {
-            max-width: 80%;
             max-height: 200px;
             min-height: 200px;
         }
