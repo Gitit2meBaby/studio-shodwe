@@ -260,6 +260,11 @@ aside .sidebar .active-location {
   .bottom-bar .cart-btn-container {
     margin: 0;
     border-radius: 0;
+    min-height: 100%;
+  }
+  .bottom-bar .bottom-btn-wrapper {
+    display: flex;
+    align-items: center;
   }
   .bottom-bar .bottom-checkout-btn {
     border: none;
@@ -270,6 +275,7 @@ aside .sidebar .active-location {
     margin: 0;
     text-transform: uppercase;
     cursor: pointer;
+    min-height: 100%;
   }
   .bottom-bar .clear-btn {
     border: none;
@@ -1001,6 +1007,7 @@ aside .sidebar .active-location {
   }
   .hover-div {
     justify-content: center;
+    width: 250%;
   }
   .hover-div p {
     margin: 0;
@@ -1008,9 +1015,13 @@ aside .sidebar .active-location {
   }
   .hover-div h2 {
     margin: 0;
+    padding: 0 4rem;
   }
   .hover-div .text-btn {
     display: none;
+  }
+  .hover-div .small-btn {
+    max-width: 120px;
   }
   .hover-div:first-of-type {
     padding: 8rem 12rem;
@@ -1279,6 +1290,11 @@ aside .sidebar .active-location {
   }
   .slider img {
     padding: 0;
+    z-index: -1 !important;
+  }
+  .slider-hover-div {
+    width: 200% !important;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 30%, transparent 60%);
   }
 }
 .jewellry-link {
@@ -2034,6 +2050,15 @@ footer {
     max-width: 30px;
   }
 }
+.loader {
+  margin: auto;
+}
+
+.active-page {
+  font-family: "Codec Pro Extrabold";
+  text-decoration: underline;
+}
+
 .too-black {
   background-color: black !important;
 }

@@ -286,6 +286,8 @@ const Electronics = ({ data, handleAddToCart, cart, addedToCart }) => {
 Electronics.propTypes = {
     state: statePropTypes,
     handleAddToCart: PropTypes.func,
+    addedToCart: PropTypes.func,
     data: PropTypes.arrayOf(PropTypes.object),
+    cart: PropTypes.arrayOf(PropTypes.object),
 };
 export default Electronics;

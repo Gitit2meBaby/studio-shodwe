@@ -313,6 +313,11 @@ aside {
         .cart-btn-container {
             margin: 0;
             border-radius: 0;
+            min-height: 100%
+        }
+
+        .bottom-btn-wrapper {
+            @include aligned();
         }
 
         .bottom-checkout-btn {
@@ -324,6 +329,7 @@ aside {
             margin: 0;
             text-transform: uppercase;
             cursor: pointer;
+            min-height: 100%;
         }
 
         .clear-btn {
@@ -1119,6 +1125,7 @@ aside {
 
     .hover-div {
         justify-content: center;
+        width: 250%;
 
         p {
             margin: 0;
@@ -1127,10 +1134,15 @@ aside {
 
         h2 {
             margin: 0;
+            padding: 0 4rem;
         }
 
         .text-btn {
             display: none;
+        }
+
+        .small-btn {
+            max-width: 120px;
         }
     }
 
@@ -1439,11 +1451,17 @@ aside {
         }
     }
 
-    .slider {
-        img {
-            padding: 0;
-        }
+    .slider img {
+        padding: 0;
+        z-index: -1 !important;
     }
+
+
+    .slider-hover-div {
+        width: 200% !important;
+        background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 30%, transparent 60%);
+    }
+
 }
 
 // JEWELLRY LINK
@@ -2307,6 +2325,15 @@ footer {
 }
 
 // DYNAMIC CLASSES
+.loader {
+    margin: auto;
+}
+
+.active-page {
+    font-family: 'Codec Pro Extrabold';
+    text-decoration: underline;
+}
+
 .too-black {
     background-color: black !important;
 

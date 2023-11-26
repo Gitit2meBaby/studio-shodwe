@@ -28,6 +28,7 @@ const Jewelery = ({ data, handleAddToCart, cart, addedToCart }) => {
         if (data && data.length > 0) {
             const jeweleryData = data.filter((item) => item.category === 'jewelery');
             setJewelery(jeweleryData);
+            setActivePage('jewelery')
 
             // Create refs for each image and text element
             imageRefs.current = jeweleryData.map(() => createRef());
@@ -292,7 +293,9 @@ const Jewelery = ({ data, handleAddToCart, cart, addedToCart }) => {
 Jewelery.propTypes = {
     state: statePropTypes,
     handleAddToCart: PropTypes.func,
+    addedToCart: PropTypes.func,
     data: PropTypes.arrayOf(PropTypes.object),
+    cart: PropTypes.arrayOf(PropTypes.object),
 };
 
 

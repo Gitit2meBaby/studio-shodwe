@@ -50,6 +50,7 @@ const MensClothing = ({ data, handleAddToCart, addedToCart, cart }) => {
                         setSidebarNumber('01');
                         setIsVisible(true);
                         setSidebarIconAmount(mensClothing.length + 1);
+
                     }
                 });
             },
@@ -291,7 +292,9 @@ const MensClothing = ({ data, handleAddToCart, addedToCart, cart }) => {
 MensClothing.propTypes = {
     state: statePropTypes,
     handleAddToCart: PropTypes.func,
+    addedToCart: PropTypes.func,
     data: PropTypes.arrayOf(PropTypes.object),
+    cart: PropTypes.arrayOf(PropTypes.object),
 };
 export default MensClothing;
 

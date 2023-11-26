@@ -84,7 +84,7 @@ const Womens = ({ data, handleAddToCart, addedToCart, cart }) => {
                 (entries) => {
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
-                            setSidebarText(`${firstWord}${secondWord}`);
+                            setSidebarText(`${firstWord} ${secondWord}`);
                             setSidebarIcon((index + 1) + 1);
                             setSidebarNumber(`0${(index + 1) + 1}`);
                             setIsVisible(true);
@@ -116,8 +116,8 @@ const Womens = ({ data, handleAddToCart, addedToCart, cart }) => {
 
         // Attach the observer to each product
         womensClothing.forEach((product, index) => {
-            if (textRefs.current[index] && textRefs.current[index].current) {
-                productObservers[index].observe(textRefs.current[index].current);
+            if (subHeadingRefs.current[index] && subHeadingRefs.current[index].current) {
+                productObservers[index].observe(subHeadingRefs.current[index].current);
             }
         });
 
@@ -326,7 +326,9 @@ const Womens = ({ data, handleAddToCart, addedToCart, cart }) => {
 Womens.propTypes = {
     state: statePropTypes,
     handleAddToCart: PropTypes.func,
+    addedToCart: PropTypes.func,
     data: PropTypes.arrayOf(PropTypes.object),
+    cart: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Womens;

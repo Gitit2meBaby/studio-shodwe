@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { statePropTypes } from '../propTypes'
 
 import Cart from "../pages/Cart";
-
+import loading from '../assets/loading.gif'
 import logo from '../assets/logo250.webp';
 
 const Header = ({ state, handleIncrease, handleDecrease, handleRemoveItem, handleClearCart, }) => {
@@ -59,11 +59,10 @@ const Header = ({ state, handleIncrease, handleDecrease, handleRemoveItem, handl
                         <NavLink to={category}><button>
                             {category}
                         </button></NavLink>
-
                     </div>
                 ))
             ) : (
-                <p>No data available.</p>
+                <img className="loader" src={loading} alt="loading gif" />
             )}
             <div className="toggle"
                 onClick={() => handleMobileMenu()}>
